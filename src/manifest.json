@@ -1,0 +1,22 @@
+{
+  "name": "Xp client : liens",
+  "version": "0.1.7",
+  "manifest_version": 2,
+  "description": "This extension synchronize awesome links of client experience direction",
+  "homepage_url": "http://cdiscount.com",
+  "icons": {
+    "16": "xpclient-16.png",
+    "48": "xpclient-48.png",
+    "128": "xpclient-128.png"
+  },
+  "browser_action": {
+    "default_icon": "xpclient-128.png",
+    "default_title": "Xp client links",
+    "default_popup": "popup.html"
+  },
+  "permissions": ["bookmarks", "storage", "gcm", "identity", "identity.email"],
+  "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
+  "background": {
+    "page": "background.html"
+  }
+}
