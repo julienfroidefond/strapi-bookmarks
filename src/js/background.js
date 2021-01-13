@@ -191,17 +191,22 @@ const createRootBookmarkNode = (selectedTags, callback) => {
 };
 
 /**
- * Check the existence of a sub root bookmark
+ * Check the existence of a sub root bookmark. This exists for avoiding recreating on sync.
+ * But on the other side if a link is on root, no way it is in a sub cat.
  * @param {*} bookmark
  * @param {*} cb
  */
-const bookmarkExists = (bookmark, cb) => {
+const bookmarkExistsOnRoot = (bookmark, cb) => {
   chrome.bookmarks.search({ title: rootBookmarkName }, rootNodes => {
     const rootNode = rootNodes[0];
     chrome.bookmarks.search({ title: bookmark.title }, searches => {
       const res = searches[0];
-      if (res && res.parentId === rootNode.id) cb(true);
-      else cb(false);
+      if (res && res.parentId === rootNode.id) {
+        console.log("bookmark avoided =>", res.id, bookmark.id);
+        cb(true);
+      } else {
+        cb(false);
+      }
     });
   });
 };
@@ -214,8 +219,8 @@ const bookmarkExists = (bookmark, cb) => {
 const createSubBookMarks = (rootNodeId, bookmarks) => {
   for (let i in bookmarks) {
     const bookmark = bookmarks[i];
-    //TODO: check if already exists by name / url + parentId = root
-    bookmarkExists(bookmark, exists => {
+    //check if already exists by name / url + parentId = root
+    bookmarkExistsOnRoot(bookmark, exists => {
       if (!exists)
         chrome.bookmarks.create(
           {

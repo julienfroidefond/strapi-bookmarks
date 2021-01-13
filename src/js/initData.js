@@ -172,6 +172,14 @@ const kube = [
   },
 ];
 
+const cibles = [
+  {
+    id: "cibles",
+    title: "Cibles des perimetres de la direction",
+    url: "https://confluence.cdiscount.com/x/vxsZBg",
+  },
+];
+
 export default {
   bookmarks: [
     {
@@ -182,7 +190,7 @@ export default {
           id: "1-1",
           title: "Desktop",
           url:
-            "https://jira.cdiscount.com/secure/RapidBoard.jspa?rapidView=4049&projectKey=PC&view=planning.nodetail&quickFilter=14133&issueLimit=100",
+            "https://jira.cdiscount.com/secure/RapidBoard.jspa?rapidView=4611&projectKey=PC&quickFilter=16717",
         },
         {
           id: "1-2",
@@ -216,15 +224,51 @@ export default {
         },
         {
           id: "1-7",
+          title: "DEM",
+          url:
+            "https://jira.cdiscount.com/secure/RapidBoard.jspa?rapidView=5135",
+        },
+        {
+          id: "1-8",
+          title: "Deco front phone",
+          url:
+            "https://jira.cdiscount.com/secure/RapidBoard.jspa?projectKey=DSI_5288&rapidView=4675",
+        },
+        {
+          id: "1-9",
           title: "RT",
           url:
             "https://jira.cdiscount.com/secure/RapidBoard.jspa?rapidView=3269&projectKey=XPTR&view=planning.nodetail&issueLimit=100",
+        },
+        {
+          id: "1-10",
+          title: "QA",
+          url:
+            "https://jira.cdiscount.com/secure/RapidBoard.jspa?rapidView=5039",
+        },
+        {
+          id: "1-99",
+          title: "Report RT",
+          url:
+            "https://officecdiscount-my.sharepoint.com/personal/julien_froidefond_cdbdx_biz/_layouts/15/onedrive.aspx?id=%2Fsites%2FDirITXPClient%2FDocuments%20partages%2F24%20%2D%20RT%2FBacklog%20technique&listurl=https%3A%2F%2Fofficecdiscount%2Esharepoint%2Ecom%2Fsites%2FDirITXPClient%2FDocuments%20partages",
+        },
+        {
+          id: "1-11",
+          title: "Wasabi",
+          url:
+            "https://jira.cdiscount.com/secure/RapidBoard.jspa?rapidView=5405&projectKey=MOB&view=planning&issueLimit=100",
+        },
+        {
+          id: "1-12",
+          title: "FT Order",
+          url:
+            "https://jira.cdiscount.com/secure/RapidBoard.jspa?rapidView=2225&quickFilter=20243",
         },
       ],
     },
     {
       id: "2",
-      title: "Tools",
+      title: "Tools / docs",
       children: [
         {
           id: "2-1",
@@ -328,6 +372,11 @@ export default {
               url: "https://lacarto.cdbdx.biz/evolve/sites/cdiscount_ref/",
             },
             {
+              id: "2-3-1-1",
+              title: "La carto : documentation",
+              url: "https://confluence.cdiscount.com/x/8EYRBg",
+            },
+            {
               id: "2-3-2",
               title: "EDI helper",
               url:
@@ -359,7 +408,7 @@ export default {
         {
           id: "2-7",
           title: "BRAN : dependencies watch",
-          url: "http://a06app.cdbdx.biz/archi-react/bran/repositories",
+          url: " https://bran.cdweb.biz/repositories",
         },
         {
           id: "2-8",
@@ -371,6 +420,27 @@ export default {
           id: "2-9",
           title: "Startup flow",
           url: "https://cdiscount.startupflow.io/",
+        },
+        {
+          id: "2-10",
+          title: "Migrer de SQLServer vers MongoDB",
+          url: "https://confluence.cdiscount.com/x/m3c0BQ",
+        },
+        {
+          id: "2-11",
+          title: "Kafka mutu",
+          url: "https://confluence.cdiscount.com/x/TEEHBQ",
+        },
+        {
+          id: "2-12",
+          title: "Navigateurs supportes",
+          url: "https://confluence.cdiscount.com/x/FwQSBw",
+        },
+        {
+          id: "2-13",
+          title: "Design system",
+          url:
+            "https://zeroheight.com/14b7df6ff/p/2985e5-design-system-cdiscount",
         },
       ],
     },
@@ -439,12 +509,6 @@ export default {
       id: "4",
       title: "Monitoring",
       children: [
-        {
-          id: "4-1",
-          title: "Business view",
-          url:
-            "https://monithor.cdbdx.biz/d/fTDhNvgWk/business-view?orgId=1&refresh=1m&from=now-1h&to=now",
-        },
         {
           id: "kube-qs",
           title: "Kube quick starter",
@@ -519,6 +583,17 @@ export default {
               title: "Nexus",
               url: "http://tfsdropserver:8082/#browse/browse:npm-group",
             },
+            {
+              id: "4-2-8",
+              title: "Web orchestrator",
+              url:
+                "https://monithor.cdbdx.biz/d/100e000054/web-orchestrator?orgId=9",
+            },
+            {
+              id: "4-2-9",
+              title: "web orchestrator : all",
+              url: "https://confluence.cdiscount.com/x/voIwC",
+            },
           ],
         },
         {
@@ -536,6 +611,12 @@ export default {
               title: "Front R2 : CPU and requests 90 days",
               url:
                 "https://omw613.dynatrace-managed.com/e/fbf7bcdb-1735-451e-99b7-b03c241114e6/#smgd;sci=SERVICE-28729D85BD368D8C;tab=CPU;servicefilter=0%1E10%11SERVICE_METHOD_GROUP-9B7117D0BC04524B;gf=6112504937928253433;gtf=l_90_DAYS;timeframe=custom1581379200000to1581984000000",
+            },
+            {
+              id: "4-3-3",
+              title: "Monithor EP / R2",
+              url:
+                "https://monithor.cdbdx.biz/d/glUEdt-iza/iis-application-server?orgId=9&refresh=1m&var-platform=a01&var-site=All&var-application=Cdiscount.Front.R2&var-instance=All",
             },
           ],
         },
@@ -560,6 +641,42 @@ export default {
               title: "Order Cockpit",
               url:
                 "http://a01kibana-dt.cdweb.biz:5601/app/kibana#/dashboard/3fec1e40-1466-11ea-affc-154ebc8912cf?_g=h@2d95062&_a=h@4df655d",
+            },
+            {
+              id: "4-12-3",
+              title: "Notifications paiement",
+              url:
+                "https://monithor.cdbdx.biz/d/dIu1Bk3Wk/payment-notifications?from=now-24h&orgId=11&to=now&refresh=30s",
+            },
+          ],
+        },
+        {
+          id: "4-18",
+          title: "Cart",
+          children: [
+            {
+              id: "4-18-1",
+              title: "CSD & cart",
+              url:
+                "https://monithor.cdbdx.biz/d/nYAimWGGz/monitoring-cassandra-cart?orgId=1&refresh=1m",
+            },
+            {
+              id: "4-18-2",
+              title: "cart-api",
+              url:
+                "https://monithor.cdbdx.biz/d/y3tRYRqi55/cart-api?from=now-6h&orgId=9&refresh=1m&to=now&var-platform=a01&var-site=All",
+            },
+            {
+              id: "4-18-3",
+              title: "Cart http app view",
+              url:
+                "https://monithor.cdbdx.biz/d/y3tRYRqim/http-application-view?orgId=9&refresh=1m&var-application=cart-api&var-http_path=All&var-http_status=All&var-method=All&var-namespace=cart&var-platform=a01&var-site=All&var-tenant=xpclient",
+            },
+            {
+              id: "4-18-4",
+              title: "Cart global http app view",
+              url:
+                "https://monithor.cdbdx.biz/d/y3tRYRqimez/global-http-application-view?orgId=9&refresh=1m&var-platform=a01&var-site=All&var-tenant=xpclient&var-namespace=cart&var-application=cart-api",
             },
           ],
         },
@@ -603,6 +720,12 @@ export default {
               url:
                 "https://omw613.dynatrace-managed.com/e/fbf7bcdb-1735-451e-99b7-b03c241114e6/#uemapplications/performanceanalysis;uemapplicationId=APPLICATION-C93CBEDCCCFC6FBB;visiblepart=action;contribution=p50;metric=F;gf=all;gtf=l_72_HOURS;filtr3ftf=custom1574368118335to1574411318335select1574389718335",
             },
+            {
+              id: "4-5-7",
+              title: "Budget perf CICD",
+              url:
+                "https://grafana.cdweb.biz/d/eKax8e4Gk/budgets-cicd-prod?orgId=1&refresh=10s&var-environment=www_recette-cdiscount_com&var-budgetsEnv=a01grapht001.cdweb.biz&from=now-24h&to=now",
+            },
           ],
         },
         {
@@ -645,7 +768,82 @@ export default {
               url:
                 "https://monithor.cdbdx.biz/d/SudXaH9Wz/objectifs-t2-decote-de-porc?orgId=1",
             },
+            {
+              id: "4-17-7",
+              title: "Bugs Dashboard",
+              url: "http://dashboard/DashboardBug.aspx",
+            },
+            {
+              id: "4-17-8",
+              title: "Suivi monithor bugs",
+              url:
+                "https://monithor.cdbdx.biz/d/ODkvroSZk/logsiis?orgId=1&refresh=1m",
+            },
           ],
+        },
+        {
+          id: "4-17",
+          title: "Baleen",
+          children: [
+            {
+              id: "4-17-1",
+              title: "nginx",
+              url:
+                "http://a08prom004.cdbdx.biz:3000/d/aD69XqImz/nginx?orgId=1&from=now-6h&to=now&refresh=5m",
+            },
+            {
+              id: "4-17-2",
+              title: "map",
+              url:
+                "http://a08prom004.cdbdx.biz:3000/d/EQy2ehvMk/map?orgId=1&kiosk&refresh=1m",
+            },
+            {
+              id: "4-17-3",
+              title: "map detailed",
+              url:
+                "http://a08prom004.cdbdx.biz:3000/d/YAQPW8ZMk/kpi-business-view?orgId=1&refresh=1m&from=now-6h&to=now",
+            },
+            {
+              id: "4-17-4",
+              title: "Grafana baleen",
+              url:
+                "https://grafana.baleen.cloud/d/qsIWaRKMz/baleen?orgId=1&from=now-6h&to=now&refresh=30s&var-namespace=cdiscount-orchestration&var-namespace=cdiscount-bffmobileapp&var-pop=All",
+            },
+          ],
+        },
+        {
+          id: "4-13",
+          title: "Bots",
+          children: [
+            {
+              id: "4-13-1",
+              title: "Repartition White/black",
+              url:
+                "https://monithor/d/XbvLprUZk/repartition-bots?orgId=1&refresh=1m",
+            },
+            {
+              id: "4-13-2",
+              title: "Repartition type de bot",
+              url: "http://a08datasc002.cdbdx.biz:8042/googlebots_perfs.html",
+            },
+          ],
+        },
+        {
+          id: "4-1-0",
+          title: "Monithor dashboards",
+          url: "https://monithor.cdbdx.biz/dashboards",
+        },
+        {
+          id: "4-1",
+          title: "Business view",
+          url:
+            "https://monithor.cdbdx.biz/d/fTDhNvgWk/business-view?orgId=1&refresh=1m&from=now-1h&to=now",
+        },
+        {
+          id: "4-1-bis",
+          title: "business view OPS",
+          url:
+            "https://monithor/d/fTDhNvgHti/business-view-only-ops?orgId=1&refresh=1m&from=now-6h&to=now",
         },
         {
           id: "4-7",
@@ -672,12 +870,6 @@ export default {
             "https://grafana.cdweb.biz/d/UzHuWGSZz/varnish-cluster-view?orgId=1&from=now-6h&to=now",
         },
         {
-          id: "4-13",
-          title: "Bots",
-          url:
-            "https://monithor/d/XbvLprUZk/repartition-bots?orgId=1&refresh=1m",
-        },
-        {
           id: "4-14",
           title: "DUST : ps monitoring",
           url:
@@ -688,6 +880,38 @@ export default {
           title: "Dynatrace PP",
           url:
             "https://eyw243.dynatrace-managed.com/e/568f3796-f854-40cf-b381-1d2b624098cc/#newservices;filter=anyFilter;gf=all;gtf=l_2_HOURS",
+        },
+        {
+          id: "4-16",
+          title: "Accelerate",
+          url: "https://accelerate.cdweb.biz/e/org0005",
+        },
+        {
+          id: "4-18",
+          title: "Aqua (secu)",
+          url: "https://a01aquaweb.gslb.cdweb.biz/",
+        },
+        {
+          id: "4-19",
+          title: "Sonar (new)",
+          url: "http://dotnetcore.sonar.cdweb.biz/projects",
+        },
+        {
+          id: "4-20",
+          title: "Sonar (old)",
+          url: "http://sonar/",
+        },
+        {
+          id: "4-21",
+          title: "Commiters repartition",
+          url:
+            "https://app.powerbi.com/groups/me/apps/5e56f980-83b6-431e-9d7a-74fad0775a9e/reports/9d359b8c-654c-4834-a453-8f57bb5623d4/ReportSection83a2a392966b071ed189?ctid=34314e6e-4023-4e4b-a15e-143f63244e2b",
+        },
+        {
+          id: "4-22",
+          title: "Air view : over fronts",
+          url:
+            "https://monithor.cdbdx.biz/d/xvJDPhaMk/air-view?orgId=9&refresh=1m",
         },
       ],
     },
@@ -723,12 +947,18 @@ export default {
           url:
             "https://officecdiscount.sharepoint.com/:p:/r/sites/dsi-pilotage/_layouts/15/Doc.aspx?sourcedoc=%7BC4C986B2-819D-4BAE-973A-A08DA2245C22%7D&file=ROADMAP%20IT%20-%20METIER%2BTRANSVERSES%20-%20deni%C3%A8re%20maj%20270120.pptx&wdLOR=cA70BDFDC-1C13-41AC-9CC3-2DD7C3CD7082&action=edit&mobileredirect=true&cid=259fc3c5-ec12-48c8-ab0a-547a108518b1",
         },
+        {
+          id: "5-6",
+          title: "Roadmap qualité DSI ",
+          url: "https://confluence.cdiscount.com/x/_wH6BQ",
+        },
       ],
     },
     {
       id: "6",
       title: "Process",
       children: [
+        ...odin,
         {
           id: "6-1",
           title: "Testing ticket",
@@ -755,7 +985,21 @@ export default {
           title: "Creation Team Project / repo GIT",
           url: "https://confluence.cdiscount.com/x/b_80Aw",
         },
-        ...odin,
+        {
+          id: "6-6",
+          title: "Template strategie de test - xp client",
+          url: "https://confluence.cdiscount.com/x/vKf2B",
+        },
+        {
+          id: "6-7",
+          title: "Centre d'aide Cdiscount",
+          url: "https://jira.cdiscount.com/plugins/servlet/desk",
+        },
+        {
+          id: "6-8",
+          title: "Deco une appli technique",
+          url: "https://confluence.cdiscount.com/x/FIUBB",
+        },
       ],
     },
     {
@@ -943,16 +1187,6 @@ export default {
       title: "Developer",
       children: [
         {
-          id: "8-1",
-          title: "Wikis",
-          url: "https://confluence.cdiscount.com/x/3YSiAQ",
-        },
-        {
-          id: "8-2",
-          title: "Guidelines Xp client",
-          url: "https://confluence.cdiscount.com/x/s4HEB",
-        },
-        {
           id: "8-3",
           title: "Mobility",
           children: [
@@ -977,6 +1211,20 @@ export default {
             ...kube,
           ],
         },
+        ...odin,
+        ...testing,
+        ...changelogs,
+        ...mobDevToolsFront,
+        {
+          id: "8-1",
+          title: "Wikis",
+          url: "https://confluence.cdiscount.com/x/3YSiAQ",
+        },
+        {
+          id: "8-2",
+          title: "Guidelines Xp client",
+          url: "https://confluence.cdiscount.com/x/s4HEB",
+        },
         {
           id: "8-4",
           title: "Bugs Dashboard",
@@ -992,16 +1240,14 @@ export default {
           title: "Kube urls",
           url: "https://confluence.cdiscount.com/x/YZTeB",
         },
-        ...odin,
-        ...testing,
-        ...changelogs,
-        ...mobDevToolsFront,
       ],
     },
     {
       id: "9",
       title: "Env / Ops",
       children: [
+        ...marathon,
+        ...kube,
         {
           id: "9-1",
           title: "Kube urls",
@@ -1012,8 +1258,6 @@ export default {
           title: "Docs monitoring",
           url: "https://confluence.cdiscount.com/x/HfkBB",
         },
-        ...marathon,
-        ...kube,
       ],
     },
     {
@@ -1085,14 +1329,27 @@ export default {
           url: "https://confluence.cdiscount.com/x/DqyJAg",
         },
         {
-          id: "13-4",
+          id: "13-3",
           title: "Refonte order",
-          url: "https://confluence.cdiscount.com/x/uN-JAg",
+          url: "https://confluence.cdiscount.com/x/jE8eB",
         },
         {
-          id: "13-5",
+          id: "13-4",
           title: "Orchestration rebuild",
           url: "https://confluence.cdiscount.com/x/igM0BQ",
+        },
+        ...cibles,
+      ],
+    },
+    {
+      id: "14",
+      title: "RUN",
+      children: [
+        {
+          id: "14-1",
+          title: "Releases details",
+          url:
+            "http://app.gslb.cdweb.biz/software-factory/dashboard-cicd/releases",
         },
       ],
     },
@@ -1101,5 +1358,6 @@ export default {
       title: "Confluence XP client",
       url: "https://confluence.cdiscount.com/x/AZ3JAg",
     },
+    ...cibles,
   ],
 };
