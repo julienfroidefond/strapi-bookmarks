@@ -1,20 +1,25 @@
 {
-  "name": "Xp client : liens",
-  "version": "0.1.7",
+  "name": "Strapi bookmarks",
+  "version": "2.2",
   "manifest_version": 2,
-  "description": "This extension synchronize awesome links of client experience direction",
+  "description": "This extension synchronize bookmarks from a Strapi server. cf https://github.com/julienfroidefond/bookmarks-cms.",
   "homepage_url": "http://cdiscount.com",
   "icons": {
-    "16": "xpclient-16.png",
-    "48": "xpclient-48.png",
-    "128": "xpclient-128.png"
+    "16": "strapi-bookmarks-16.png",
+    "48": "strapi-bookmarks-48.png",
+    "128": "strapi-bookmarks-128.png"
   },
   "browser_action": {
-    "default_icon": "xpclient-128.png",
-    "default_title": "Xp client links",
+    "default_icon": "strapi-bookmarks-128.png",
+    "default_title": "Strapi bookmarks",
     "default_popup": "popup.html"
   },
-  "permissions": ["bookmarks", "storage", "gcm", "identity", "identity.email"],
+  "options_page": "options.html",
+  "options_ui": {
+    "page": "options.html",
+    "open_in_tab": false
+  },
+  "permissions": ["bookmarks", "storage"],
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "background": {
     "page": "background.html"

@@ -1,48 +1,68 @@
 <!DOCTYPE html>
-
-<div id="mainPopup">
-  <h1>Xp client Links</h1>
-  <p>
-    Here are some links for xp client.
-  </p>
-  <div id="menu-tags"></div>
-  <span class="badge all-badges" data-id="all">Tous</span>
-
-  <button class="push">PUSH</button>
-
-  <br />
-  <hr />
-  <input
-    type="text"
-    class="form-control"
-    id="custom-root-name"
-    placeholder="Custom root name (xp client by default)"
-  />
-
-  <br />
-  <hr />
-  <button class="btn btn-default" id="show-submit">
-    Want to submit a new link ?
-  </button>
-  <form id="submit-form">
-    <div class="form-group">
-      <label for="title">Title</label>
-      <input type="text" class="form-control" id="title" placeholder="Title" />
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+  <div id="title">
+    <div id="icon-and-name-wrapper">
+      <img id="icon" src="./img/strapi-bookmarks-48.png" /><span>Strapi bookmarks</span>
     </div>
-    <div class="form-group">
-      <label for="url">URL</label>
-      <input type="url" class="form-control" id="url" placeholder="URL" />
-    </div>
-    <button type="submit" class="btn btn-default">Submit a new link</button>
-  </form>
-  <br />
-  <hr />
-
-  <div>
-    <h2>Help</h2>
-    By selecting tags, you will get in your bookmarks a new directory named "xp
-    client" and under it, you will have, by tags, sub directories with all fresh
-    links.
-    <img style="width: 100%;" src="./img/screenshot.jpg" />
   </div>
-</div>
+  <div id="mainPopup">
+    <div class="loader">
+      <div class="lds-ellipsis">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+    <div>
+      Here are some links from your Strapi server. <br />
+      <b id="bookmarks-count">0</b> bookmarks available with <b id="tags-categories-count">0</b> tag
+      categories (<b id="tags-count">0</b>
+      tags) on the server.
+      <p>
+        You synced <b id="synced-tags-categories-count">0</b> categories and
+        <b id="synced-bookmarks-count">0</b> bookmarks.
+      </p>
+    </div>
+
+    <hr />
+    <h2>Syncing</h2>
+    <div id="onboarding" class="row onboarding-message hidden">
+      It seems you have not configured your strapi server yet 😃<br />
+      You can do it in the extension options !<br />
+
+      <button class="btn btn-default btn-open-options float-right">Open options</button>
+    </div>
+    <div id="warning-tags" class="row">
+      CAUTION, surely you didn't configure properly this extension. Check options by right clicking on it.
+      strapiUrl is mandatory.
+      <p id="error-message"></p>
+      <button class="btn btn-default btn-open-options float-right">Open options</button>
+    </div>
+    <div id="sync-section">
+      <button class="force-sync btn btn-default">Synchronize now</button>
+      <br />
+      <hr />
+      <h2>Datas</h2>
+      <p>Tags categories :</p>
+      <div id="menu-tags-categories-strapi"></div>
+      <!-- <span class="badge all-badges" data-st-id="all">Tous</span> -->
+      <p>Tags :</p>
+      <div id="menu-tags-strapi"></div>
+      <!-- <span class="badge all-badges" data-st-id="all">Tous</span> -->
+      <br />
+    </div>
+    <hr />
+
+    <div>
+      <h2>Help</h2>
+      By synchronising, you will get in your bookmarks a new directory named "Strapi bookmarks" and under it,
+      you will have, by category tags, sub directories with all fresh links. In options, you can change the
+      label of root directory and various options.
+      <img style="width: 100%;" src="./img/screenshot.jpg" />
+    </div>
+  </div>
+</body>

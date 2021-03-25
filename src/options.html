@@ -1,8 +1,49 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <title></title>
+    <title>My Test Extension Options</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   </head>
-  <body></body>
+  <body>
+    <p>Timing between auto synchronisation (0 = none) in hours</p>
+    <input class="form-control" id="auto-sync-delay" value="0" type="number" />
+    <br />
+
+    <p>Here set the root bookmark name :</p>
+    <input
+      type="text"
+      class="form-control"
+      id="custom-root-name"
+      placeholder="Custom root name (Strapi bookmarks by default)"
+    />
+    <br />
+
+    <p>Here set the strapi server url (ends with /) :</p>
+    <input
+      type="text"
+      class="form-control"
+      id="strapi-url"
+      placeholder="https://bookmarks-cms.herokuapp.com/"
+    />
+    <br />
+
+    <p>Here set the strapi token :</p>
+    <input
+      type="text"
+      class="form-control"
+      id="strapi-jwt"
+      placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE1OTgxODU5LCJleHAiOjE2MTg1NzM4NTl9.06YN9zo3e5sg9zmuuRj-UvmoabMHLClcK1jpb6iKlH4"
+    />
+    <br />
+
+    <br />
+
+    <div id="status"></div>
+    <div class="row">
+      <button class="btn btn-default" id="save">Save</button>
+      <button class="btn btn-default" id="restore">Restore defaults</button>
+    </div>
+
+    <script src="options.js"></script>
+  </body>
 </html>
