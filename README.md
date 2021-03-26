@@ -47,9 +47,9 @@ That's it, when you edit your code, to be sure to see last update on your chrome
 
 ### Roadmap
 
-[x] Add a button 'restore settings' in options.html
-[x] Make strapi url configurable
-[] Do not recreate rootNode : save its id in config, remove only its childrens on sync
-[] Optim onboarding 😃
-[] Let user select bookmark folders to sync (using tag, category...)
-[] Use up to date strategies : https://developer.chrome.com/docs/extensions/mv3/migrating_to_service_workers/
+- [x] Add a button 'restore settings' in options.html
+- [x] Make strapi url configurable
+- [] Do not recreate rootNode : save its id in config, remove only its childrens on sync
+- [] Optim onboarding 😃
+- [] Let user select bookmark folders to sync (using tag, category...)
+- [] Use up to date strategies : https://developer.chrome.com/docs/extensions/mv3/migrating_to_service_workers/
