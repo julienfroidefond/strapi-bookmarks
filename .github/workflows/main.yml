@@ -28,15 +28,6 @@ jobs:
       - name: Run a one-line script
         run: yarn build
         
-      - uses: Klemensas/chrome-extension-upload-action@$VERSION
-      - with:
-          refresh-token: 'xxxxxxxxxxxxxxxxxxxxxx'
-          client-id: '845461938876-pnkrb0i2ve0ij7ielov0afh75nau34gd.apps.googleusercontent.com'
-          client-secret: '0IAd8E8wNCXKelXlADx0GMgm'
-          file-name: './build.zip'
-          app-id: 'oobifkfbojcheinmoejdhgllgennkjpe'
-          publish: true
-        
       - name: Chrome Extension upload & publish
         uses: Passiverecords/chrome-extension-upload-action@1.4.1
 
