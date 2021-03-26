@@ -1,8 +1,14 @@
 # Strapi bookmarks
 
-## doc
+![screenshot](./src/img/ChromeStore/Strapi-Bookmarks-Extension-DarkBlue.png)
+
+## Intro
 
 This extension synchronize with a Strapi server. Cf cf https://github.com/julienfroidefond/bookmarks-cms for the server configured and good to ship.
+
+![screenshot](./src/img/ChromeStore/screenshot.jpg)
+
+![screenshot](./src/img/screenshot.jpg)
 
 ## Building for chrome
 
