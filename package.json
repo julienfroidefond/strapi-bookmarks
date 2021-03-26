@@ -12,7 +12,7 @@
     "pretty-quick": "2.0.2",
     "style-loader": "1.0.0",
     "webpack": "4.41.2",
-    "webpack-cli": "3.3.10",
+    "webpack-cli": "3.3.12",
     "webpack-dev-server": "3.9.0",
     "write-file-webpack-plugin": "4.5.1",
     "zip-webpack-plugin": "4.0.1"
