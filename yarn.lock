@@ -4931,7 +4931,7 @@ yazl@^2.5.1:
   dependencies:
     buffer-crc32 "~0.2.3"
 
-zip-webpack-plugin@^4.0.1:
+zip-webpack-plugin@4.0.1:
   version "4.0.1"
   resolved "https://registry.yarnpkg.com/zip-webpack-plugin/-/zip-webpack-plugin-4.0.1.tgz#95f09716ecf73e53d949443017cfb03afe597dd3"
   integrity sha512-G041Q4qUaog44Ynit6gs4o+o3JIv0WWfOLvc8Q3IxvPfuqd2KBHhpJWAXUB9Cm1JcWHTIOp9vS3oGMWa1p1Ehw==
