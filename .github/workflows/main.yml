@@ -3,8 +3,6 @@ name: Publish on chrome store
 on:
   push:
     branches: [main]
-  pull_request:
-    branches: [main]
 
   workflow_dispatch:
 
