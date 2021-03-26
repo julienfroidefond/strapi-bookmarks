@@ -17,7 +17,7 @@ jobs:
       - name: Chrome Extension upload & publish
         uses: Passiverecords/chrome-extension-upload-action@1.4.1
         with:
-          refresh-token: "xxxxx"
+          refresh-token: ${{ secrets.GCS_REFRESH_TOKEN }}
           client-id: ${{ secrets.GCS_CLIENT_ID }}
           client-secret: ${{ secrets.GCS_CLIENT_SECRET }}
           file-name: "./build.zip"
