@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2.1.0
       - name: Run a one-line script
-        run: yarn build
+        run: yarn && yarn build
 
       - name: Chrome Extension upload & publish
         uses: Passiverecords/chrome-extension-upload-action@1.4.1
