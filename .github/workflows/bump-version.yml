@@ -2,19 +2,6 @@ name: Bump version
 
 on:
   workflow_dispatch:
-    inputs:
-      bump:
-        description: 'bump type, major or minor or patch or empty string'
-        default: ''
-      dry_run:
-        description: 'dry run, true or false'
-        default: 'false'
-      draft:
-        description: 'draft, true or false'
-        default: 'false'
-      pre_release:
-        description: 'pre release, true or false'
-        default: 'false'
 
 jobs:
   release:
@@ -23,12 +10,8 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - uses: MeilCli/bump-release-action@v1
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
         with:
-          commit_user: julienfroidefond
-          commit_email: julienfroidefond@gmail.com
-          config_path: '.github/bump-config.yml'
-          bump: ${{ github.event.inputs.bump }}
-          dry_run: 'true'
-          draft: 'false'
-          pre_release: 'false'
+          github-token: ${{ github.token }}
+          version-file: ./src/manifest.json
