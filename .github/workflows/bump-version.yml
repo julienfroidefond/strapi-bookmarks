@@ -25,6 +25,8 @@ jobs:
           fetch-depth: 0
       - uses: MeilCli/bump-release-action@v1
         with:
+          commit_user: julienfroidefond
+          commit_email: julienfroidefond@gmail.com
           config_path: '.github/bump-config.yml'
           bump: ${{ github.event.inputs.bump }}
           dry_run: 'false'
