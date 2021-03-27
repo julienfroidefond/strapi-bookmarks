@@ -1,5 +1,5 @@
 branch:
-  base-branch: 'develop'
+  base-branch: 'main'
 files:
   - file-path: 'src/manifest.json'
     line: 3
