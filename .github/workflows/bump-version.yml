@@ -29,6 +29,6 @@ jobs:
           commit_email: julienfroidefond@gmail.com
           config_path: '.github/bump-config.yml'
           bump: ${{ github.event.inputs.bump }}
-          dry_run: 'false'
+          dry_run: 'true'
           draft: 'false'
           pre_release: 'false'
