@@ -23,3 +23,10 @@ jobs:
           file-name: "./build.zip"
           app-id: "oobifkfbojcheinmoejdhgllgennkjpe"
           publish: true
+
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          version-file: ./src/manifest.json
+          skip-on-empty: false
