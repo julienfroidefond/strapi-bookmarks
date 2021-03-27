@@ -15,3 +15,4 @@ jobs:
         with:
           github-token: ${{ github.token }}
           version-file: ./src/manifest.json
+          skip-on-empty: false
