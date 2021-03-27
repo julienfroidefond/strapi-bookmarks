@@ -1,6 +1,6 @@
 {
   "name": "Strapi bookmarks",
-  "version": "2.2",
+  "version": "2.3",
   "manifest_version": 2,
   "description": "This extension synchronize bookmarks from a Strapi server. cf https://github.com/julienfroidefond/bookmarks-cms.",
   "homepage_url": "http://cdiscount.com",
