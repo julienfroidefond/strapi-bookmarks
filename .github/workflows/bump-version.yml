@@ -1,4 +1,4 @@
-name: Release
+name: Bump version
 
 on:
   workflow_dispatch:
@@ -25,8 +25,8 @@ jobs:
           fetch-depth: 0
       - uses: MeilCli/bump-release-action@v1
         with:
-          config_path: 'src/manifest.json'
+          config_path: '.github/bump-config.yml'
           bump: ${{ github.event.inputs.bump }}
-          dry_run: ${{ github.event.inputs.dry_run }}
-          draft: ${{ github.event.inputs.draft }}
-          pre_release: ${{ github.event.inputs.pre_release }}
+          dry_run: 'false'
+          draft: 'false'
+          pre_release: 'false'
