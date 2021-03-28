@@ -3,6 +3,10 @@ name: Publish on chrome store
 on:
   push:
     branches: [main]
+    paths-ignore:
+      - "package.json"
+      - "src/manifest.json"
+      - "CHANGELOG.md"
 
   workflow_dispatch:
 
@@ -28,5 +32,7 @@ jobs:
         uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-message: "chore(release): {version}"
           version-file: ./src/manifest.json
           skip-on-empty: false
+          output-file: "CHANGELOG.md"
