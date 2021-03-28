@@ -17,7 +17,7 @@ yarn
 yarn build
 ```
 
-After that, you will get in the `build` folder the files to put in chrome extension.
+After that, you will get in the `build` folder the files to put in chrome extension. Note : it gerates also the zip to ship on chroms web store.
 
 ## Starting developpment
 
