@@ -34,5 +34,4 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           git-message: "chore(release): {version}"
           version-file: ./src/manifest.json
-          skip-on-empty: false
           output-file: "CHANGELOG.md"
