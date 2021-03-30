@@ -10,6 +10,7 @@ const defaultConfig = {
   customRootName: DEFAULT_ROOT_BOOKMARK_NAME,
   autoSyncDelay: DEFAULT_AUTO_SYNC_DELAY,
   isConfigured: false,
+  rootBookmarkId: null,
 };
 
 export const load = (defaultValues = defaultConfig) =>
@@ -25,15 +26,21 @@ export const load = (defaultValues = defaultConfig) =>
 
 export const save = data =>
   new Promise(resolve => {
-    const { strapiUrl, strapiJwt, customRootName, autoSyncDelay } = data;
-    // TODO : handle errors
+    const {
+      autoSyncDelay,
+      customRootName,
+      rootBookmarkId,
+      strapiJwt,
+      strapiUrl,
+    } = data;
     chrome.storage.sync.set(
       {
-        strapiUrl,
-        strapiJwt,
-        customRootName,
         autoSyncDelay,
+        customRootName,
         isConfigured: true,
+        rootBookmarkId,
+        strapiJwt,
+        strapiUrl,
       },
       resolve,
     );
