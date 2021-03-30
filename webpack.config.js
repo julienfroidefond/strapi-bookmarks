@@ -39,7 +39,7 @@ var options = {
       },
       {
         test: new RegExp(".(" + fileExtensions.join("|") + ")$"),
-        use: ["file-loader?name=[name].[ext]"],
+        type: "asset/resource",
         exclude: /node_modules/,
       },
       {
@@ -57,7 +57,7 @@ var options = {
     new CleanWebpackPlugin(),
     // expose and write the allowed env vars on the compiled bundle
     new webpack.EnvironmentPlugin({
-      NODE_ENV: "development",
+      NODE_ENV: "production",
       DEBUG: false,
     }),
     new CopyWebpackPlugin({
@@ -75,6 +75,7 @@ var options = {
             );
           },
         },
+        { from: "src/img/extension", to: "./" },
       ],
     }),
     new HtmlWebpackPlugin({
