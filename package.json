@@ -20,7 +20,8 @@
   },
   "scripts": {
     "build": "node utils/build.js",
-    "start": "node utils/webserver.js"
+    "start": "node utils/webserver.js",
+    "commit": "cz"
   },
   "husky": {
     "hooks": {
