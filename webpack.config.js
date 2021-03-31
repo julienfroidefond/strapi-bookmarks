@@ -57,7 +57,7 @@ var options = {
     new CleanWebpackPlugin(),
     // expose and write the allowed env vars on the compiled bundle
     new webpack.EnvironmentPlugin({
-      NODE_ENV: "production",
+      NODE_ENV: "development",
       DEBUG: false,
     }),
     new CopyWebpackPlugin({
