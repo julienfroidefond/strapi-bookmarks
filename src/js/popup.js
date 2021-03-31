@@ -1,9 +1,5 @@
 import $ from "jquery";
 
-import "../img/strapi-bookmarks-16.png";
-import "../img/strapi-bookmarks-48.png";
-import "../img/strapi-bookmarks-128.png";
-import "../img/screenshot.jpg";
 import "../css/popup.css";
 import * as configUtils from "./utils/config";
 import {

@@ -5,7 +5,6 @@ var webpack = require("webpack"),
   CleanWebpackPlugin = require("clean-webpack-plugin").CleanWebpackPlugin,
   CopyWebpackPlugin = require("copy-webpack-plugin"),
   HtmlWebpackPlugin = require("html-webpack-plugin"),
-  WriteFilePlugin = require("write-file-webpack-plugin"),
   ZipPlugin = require("zip-webpack-plugin");
 
 // load the secrets
@@ -35,17 +34,17 @@ var options = {
     rules: [
       {
         test: /\.css$/,
-        loader: "style-loader!css-loader",
+        use: ["style-loader", "css-loader"],
         exclude: /node_modules/,
       },
       {
         test: new RegExp(".(" + fileExtensions.join("|") + ")$"),
-        loader: "file-loader?name=[name].[ext]",
+        type: "asset/resource",
         exclude: /node_modules/,
       },
       {
         test: /\.html$/,
-        loader: "html-loader",
+        use: ["html-loader"],
         exclude: /node_modules/,
       },
     ],
@@ -57,22 +56,28 @@ var options = {
     // clean the build folder
     new CleanWebpackPlugin(),
     // expose and write the allowed env vars on the compiled bundle
-    new webpack.EnvironmentPlugin(["NODE_ENV"]),
-    new CopyWebpackPlugin([
-      {
-        from: "src/manifest.json",
-        transform: function (content, path) {
-          // generates the manifest file using the package.json informations
-          return Buffer.from(
-            JSON.stringify({
-              description: process.env.npm_package_description,
-              version: process.env.npm_package_version,
-              ...JSON.parse(content.toString()),
-            }),
-          );
+    new webpack.EnvironmentPlugin({
+      NODE_ENV: "production",
+      DEBUG: false,
+    }),
+    new CopyWebpackPlugin({
+      patterns: [
+        {
+          from: "src/manifest.json",
+          transform: function (content, path) {
+            // generates the manifest file using the package.json informations
+            return Buffer.from(
+              JSON.stringify({
+                description: process.env.npm_package_description,
+                version: process.env.npm_package_version,
+                ...JSON.parse(content.toString()),
+              }),
+            );
+          },
         },
-      },
-    ]),
+        { from: "src/img/extension", to: "./" },
+      ],
+    }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "src", "popup.html"),
       filename: "popup.html",
@@ -88,7 +93,6 @@ var options = {
       filename: "background.html",
       chunks: ["background"],
     }),
-    new WriteFilePlugin(),
     new ZipPlugin({
       path: "../",
       filename: "build.zip",
@@ -96,8 +100,8 @@ var options = {
   ],
 };
 
-if (env.NODE_ENV === "development") {
-  options.devtool = "cheap-module-eval-source-map";
-}
+// if (env.NODE_ENV === "development") {
+//   options.devtool = "cheap-module-eval-source-map";
+// }
 
 module.exports = options;
