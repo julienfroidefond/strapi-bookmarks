@@ -39,7 +39,7 @@ var options = {
       },
       {
         test: new RegExp(".(" + fileExtensions.join("|") + ")$"),
-        type: "asset/resource",
+        type: "asset/inline",
         exclude: /node_modules/,
       },
       {
@@ -100,8 +100,8 @@ var options = {
   ],
 };
 
-// if (env.NODE_ENV === "development") {
-//   options.devtool = "cheap-module-eval-source-map";
-// }
+if (env.NODE_ENV === "development") {
+  options.devtool = "cheap-module-source-map";
+}
 
 module.exports = options;
