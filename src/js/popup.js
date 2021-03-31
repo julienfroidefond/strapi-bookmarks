@@ -52,6 +52,35 @@ const cleanError = () => {
   $("#error-message").html("");
 };
 
+/**
+ * Handling click on tags and categoties
+ * @param {DOM element} e targeted DOM clicked
+ * @param {string} type tag or category
+ */
+const handleClickOnTag = (e, type) => {
+  const $tag = $(e.target);
+  const id = $tag.attr("data-st-id");
+  $tag.toggleClass("checked");
+  const isChecked = $tag.hasClass("checked");
+  chrome.storage.local.get(["tagSelected", "categorySelected"], result => {
+    const tagSelected = result.tagSelected || [];
+    const categorySelected = result.categorySelected || [];
+
+    switch (type) {
+      case "tag":
+        tagSelected[id] = isChecked;
+        break;
+      case "category":
+        categorySelected[id] = isChecked;
+        break;
+    }
+    chrome.storage.local.set({
+      tagSelected,
+      categorySelected,
+    });
+  });
+};
+
 (async () => {
   // Fetch data
   const config = await configUtils.load();
@@ -83,17 +112,24 @@ const cleanError = () => {
   const tagsMenu = $("#menu-tags-strapi");
   for (var i in tags) {
     const item = tags[i];
-    if (item.bookmarks.length > 0)
-      tagsMenu.append(
+    if (item.bookmarks.length > 0) {
+      const $tag = $(
         `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.bookmarks.length})</span>`,
-      );
+      ).on("click", e => {
+        handleClickOnTag(e, "tag");
+      });
+      tagsMenu.append($tag);
+    }
   }
   const categoriesMenu = $("#menu-tags-categories-strapi");
   for (var i in categories) {
     const item = categories[i];
-    categoriesMenu.append(
+    const $tag = $(
       `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.tags.length})</span>`,
-    );
+    ).on("click", e => {
+      handleClickOnTag(e, "category");
+    });
+    categoriesMenu.append($tag);
   }
 
   // Render "Server infos"
@@ -111,6 +147,21 @@ const cleanError = () => {
   if (!config.isConfigured) {
     $("#onboarding").removeClass("hidden");
   }
+
+  //Retag checked at opening
+  chrome.storage.local.get(["tagSelected", "categorySelected"], result => {
+    const tagSelected = result.tagSelected || [];
+    const categorySelected = result.categorySelected || [];
+
+    for (let id in tagSelected) {
+      const isChecked = tagSelected[id];
+      if (isChecked) $(`#menu-tags-strapi .tag[data-st-id=${id}]`).addClass("checked");
+    }
+    for (let id in categorySelected) {
+      const isChecked = categorySelected[id];
+      if (isChecked) $(`#menu-tags-categories-strapi .tag[data-st-id=${id}]`).addClass("checked");
+    }
+  });
 })();
 
 /**
