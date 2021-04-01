@@ -15,8 +15,12 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2.3.4
-      - name: Run a one-line script
+
+      - name: Building
         run: yarn && yarn build
+
+      - name: Testing
+        run: yarn test
 
       - name: Chrome Extension upload & publish
         uses: Passiverecords/chrome-extension-upload-action@1.4.1

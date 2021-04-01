@@ -26,13 +26,7 @@ export const load = (defaultValues = defaultConfig) =>
 
 export const save = data =>
   new Promise(resolve => {
-    const {
-      autoSyncDelay,
-      customRootName,
-      rootBookmarkId,
-      strapiJwt,
-      strapiUrl,
-    } = data;
+    const { autoSyncDelay, customRootName, rootBookmarkId, strapiJwt, strapiUrl } = data;
     chrome.storage.sync.set(
       {
         autoSyncDelay,

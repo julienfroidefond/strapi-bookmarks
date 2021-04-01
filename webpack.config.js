@@ -34,7 +34,7 @@ var options = {
     rules: [
       {
         test: /\.css$/,
-        use: ["style-loader", "css-loader"],
+        type: "asset/resource",
         exclude: /node_modules/,
       },
       {
