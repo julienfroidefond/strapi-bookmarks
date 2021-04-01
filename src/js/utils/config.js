@@ -4,7 +4,7 @@ const DEFAULT_STRAPI_JWT =
   "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE1OTgxODU5LCJleHAiOjE2MTg1NzM4NTl9.06YN9zo3e5sg9zmuuRj-UvmoabMHLClcK1jpb6iKlH4";
 const DEFAULT_AUTO_SYNC_DELAY = 1;
 
-const defaultConfig = {
+export const defaultConfig = {
   strapiUrl: DEFAULT_STRAPI_URL,
   strapiJwt: DEFAULT_STRAPI_JWT,
   customRootName: DEFAULT_ROOT_BOOKMARK_NAME,
