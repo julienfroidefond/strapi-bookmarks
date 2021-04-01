@@ -103,7 +103,7 @@ export const init = async () => {
   // Render Daemon state
   const state = await getState();
   if (state.error) {
-    handleError(state.error.message);
+    handleError(state.error);
   }
 
   renderBookmarksStats(state);
