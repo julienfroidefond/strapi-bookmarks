@@ -13,20 +13,41 @@ export const defaultConfig = {
   rootBookmarkId: null,
 };
 
-export const load = (defaultValues = defaultConfig) =>
-  new Promise(resolve => {
-    chrome.storage.sync.get(defaultValues, result => {
-      const filledWithDefaultValues = Object.keys(result).reduce((agg, curr) => {
-        agg[curr] = result[curr] || defaultConfig[curr];
-        return agg;
-      }, {});
-      resolve(filledWithDefaultValues);
-    });
-  });
+/**
+ * Load configuration from chrome storage
+ *
+ * @param {object} defaultValues to merge with existing ones
+ *
+ * @returns {Promise} Promise resolving the last persisted configuration
+ */
+ export const load = (defaultValues = defaultConfig) =>
+ new Promise(resolve => {
+   chrome.storage.sync.get(defaultValues, result => {
+     const filledWithDefaultValues = Object.keys(result).reduce((agg, curr) => {
+       agg[curr] = result[curr] || defaultConfig[curr];
+       return agg;
+     }, {});
+     resolve(filledWithDefaultValues);
+   });
+ });
 
-export const save = data =>
+/**
+ * Persist configuration to chrome storage
+ *
+ * Note: will auto set isConfigured=true
+ *
+ * @param {object} config - the config object to save
+ * @param {number} [config.autoSyncDelay] - delay between sync job in ms
+ * @param {string} [config.customRootName] - root bookmark folder
+ * @param {} [config.rootBookmarkId] - last root bookmark folder id (chrome id)
+ * @param {} [config.strapiJwt] - strapi server jwt
+ * @param {} [config.strapiUrl] - strapi server url
+ *
+ * @returns {Promise} Promise resolved when config is saved
+ */
+export const save = config =>
   new Promise(resolve => {
-    const { autoSyncDelay, customRootName, rootBookmarkId, strapiJwt, strapiUrl } = data;
+    const { autoSyncDelay, customRootName, rootBookmarkId, strapiJwt, strapiUrl } = config;
     chrome.storage.sync.set(
       {
         autoSyncDelay,
