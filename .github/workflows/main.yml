@@ -22,6 +22,14 @@ jobs:
       - name: Testing
         run: yarn test
 
+      - name: Conventional Changelog Action
+        uses: TriPSs/conventional-changelog-action@v3
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          git-message: "chore(release): {version}"
+          version-file: ./src/manifest.json
+          output-file: "CHANGELOG.md"
+
       - name: Chrome Extension upload & publish
         uses: Passiverecords/chrome-extension-upload-action@1.4.1
         with:
@@ -31,11 +39,3 @@ jobs:
           file-name: "./build.zip"
           app-id: "oobifkfbojcheinmoejdhgllgennkjpe"
           publish: true
-
-      - name: Conventional Changelog Action
-        uses: TriPSs/conventional-changelog-action@v3
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          git-message: "chore(release): {version}"
-          version-file: ./src/manifest.json
-          output-file: "CHANGELOG.md"
