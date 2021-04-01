@@ -1,6 +1,5 @@
 import $ from "jquery";
 
-// import "../css/popup.css";
 import * as configUtils from "./utils/config";
 import {
   postMessageAndWaitAck,
