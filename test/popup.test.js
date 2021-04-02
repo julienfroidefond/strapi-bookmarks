@@ -10,21 +10,26 @@ import { assert } from "chai";
 var jsonPath = path.join(__dirname, "..", "src", "popup.html");
 var jsonString = readFileSync(jsonPath, "utf8");
 
+const sandbox = sinon.createSandbox();
 const dom = new JSDOM(jsonString);
 
-sinon.stub(configUtils, "load").returns({ isConfigured: false });
-sinon.stub(actionUtils, "postMessageAndWaitAck").returns(() => {});
-sinon.stub(actionUtils, "postMessageAndWaitFor").returns({
-  state: {
-    error: "Error message",
-  },
-});
-
 describe("popup.js", () => {
-  before(function () {
+  before(() => {
     chrome.extension.connect = () => {};
     global.chrome = chrome;
     global.window = dom.window;
+
+    sandbox.stub(configUtils, "load").returns({ isConfigured: false });
+    sandbox.stub(actionUtils, "postMessageAndWaitAck").returns(() => {});
+    sandbox.stub(actionUtils, "postMessageAndWaitFor").returns({
+      state: {
+        error: "Error message",
+      },
+    });
+  });
+
+  after(() => {
+    sandbox.restore();
   });
 
   describe("init()", () => {

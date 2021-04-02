@@ -16,6 +16,8 @@
     "nyc": "15.1.0",
     "prettier": "2.2.1",
     "pretty-quick": "3.1.0",
+    "sinon": "^10.0.0",
+    "sinon-chai": "^3.6.0",
     "sinon-chrome": "3.0.1",
     "style-loader": "2.0.0",
     "webpack": "5.29.0",
@@ -27,7 +29,8 @@
     "build": "node utils/build.js",
     "start": "node utils/webserver.js",
     "commit": "cz",
-    "test": "nyc mocha -r esm"
+    "test": "nyc mocha --require utils/mocha.js --recursive -r esm",
+    "test:debug": "mocha inspect --require utils/mocha.js --recursive -r esm"
   },
   "husky": {
     "hooks": {
