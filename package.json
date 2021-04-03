@@ -30,7 +30,8 @@
     "start": "node utils/webserver.js",
     "commit": "cz",
     "test": "nyc mocha --require utils/mocha.js --recursive -r esm",
-    "test:debug": "mocha inspect --require utils/mocha.js --recursive -r esm"
+    "test:debug": "mocha inspect --require utils/mocha.js --recursive -r esm",
+    "test:watch": "mocha --watch --require utils/mocha.js --recursive -r esm"
   },
   "husky": {
     "hooks": {

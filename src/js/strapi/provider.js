@@ -6,7 +6,7 @@ const UNDEFINED_CATEGORY_LABEL = "Undefined category";
  * Load and parse bookmarks tree from strapi
  *
  * @param {object} config Current extension config
- * @returns Object with structure [{ ..., type: 'directory', childrens: [ { type: 'bookmark', name: '..' } ] }]
+ * @returns Object with structure [{ ..., type: 'directory', childrens: [ { type: 'bookmark', title: '..' } ] }]
  */
 export async function loadBookmarksTree(config) {
   // Fetch all required info
@@ -14,13 +14,13 @@ export async function loadBookmarksTree(config) {
   const tags = await httpClient.getTags();
 
   // Prepare data
-  const undefinedCategory = { id: -1, name: UNDEFINED_CATEGORY_LABEL, type: "directory" };
+  const undefinedCategory = { id: -1, title: UNDEFINED_CATEGORY_LABEL, type: "directory" };
   const tagsByCategoryId = tags.reduce((agg, tag) => {
     const categoryId = [tag.tags_category ? tag.tags_category.id : -1];
     const categoryTags = agg[categoryId] || [];
     categoryTags.push({
       id: tag.id,
-      name: tag.name,
+      title: tag.name,
       type: "directory",
       childrens: tag.bookmarks.map(({ id, title, url }) => ({ id, title, url, type: "bookmark" })),
     });
@@ -38,7 +38,7 @@ export async function loadBookmarksTree(config) {
       ...agg,
       [category.id]: {
         type: "directory",
-        name: category.name,
+        title: category.name,
         id: category.id,
         childrens: tagsByCategoryId[category.id],
       },

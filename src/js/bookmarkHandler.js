@@ -19,7 +19,7 @@ const createRoot = rootBookmarkName =>
 
 const getById = bookmarkId => new Promise(resolve => chrome.bookmarks.get(bookmarkId, (bookmarks) => {
   if (!bookmarks || bookmarks.length === 0) {
-    resolve(null);
+    return resolve(null);
   }
   resolve(bookmarks[0].id);
 }));
@@ -29,11 +29,9 @@ const getOrCreateRoot = (rootBookmarkId, rootBookmarkName) =>
     if (!rootBookmarkId) {
       return resolve(await createRoot(rootBookmarkName));
     }
-    try {
-      resolve(await getById(rootBookmarkId));
-    } catch (error) {
-      resolve(await createRoot(rootBookmarkName));
-    }
+    const rootId = await getById(rootBookmarkId);
+    if (rootId) return resolve(rootId);
+    resolve(await createRoot(rootBookmarkName));
   });
 
 const createDirectory = (parentNodeId, title) =>
@@ -79,6 +77,7 @@ const removeTree = (bookmarkId) => new Promise(resolve => chrome.bookmarks.remov
 const removeChildrens = bookmarkId =>
   new Promise((resolve, reject) => {
     chrome.bookmarks.getChildren(bookmarkId, (childrens) => {
+      if (!childrens) return Promise.resolve([]);
       Promise.all(childrens.map(element => removeTree(element.id))).then(resolve).catch(reject);
     })
   })
@@ -123,13 +122,23 @@ const bookmarksCount = () =>
       }),
   );
 
+const loadBookmarksTreeSafe = (rootId) => new Promise((resolve) => {
+  if (!rootId) return resolve([]);
+  chrome.bookmarks.getSubTree(rootId, (results) => {
+    if (!results || results.length == 0) return resolve([]);
+    resolve(results[0].children);
+  });
+});
+
 export default {
   bookmarksCount,
   categoriesCount,
   createBMark,
   createDirectory,
   createRoot,
+  getById,
   getOrCreateRoot,
   removeChildrens,
   removeRoot,
+  loadBookmarksTreeSafe,
 };

@@ -8,7 +8,7 @@ import { waitPromise } from "./utils/time";
 import bookmarkHandler from "./bookmarkHandler";
 import * as configUtils from "./utils/config";
 import * as strapiProvider from "./strapi/provider";
-import { browseTree } from "./utils/graph"
+import { compareTrees, browseTree } from "./utils/graph"
 
 const ONE_HOUR = 3600000;
 
@@ -105,35 +105,50 @@ async function runJob() {
     }
 
     // Fetch bookmarks
-    const bookmarks = await strapiProvider.loadBookmarksTree(config);
-    setState({ bookmarks });
+    const backendBookmarks = await strapiProvider.loadBookmarksTree(config);
+    const localBookmarks = await bookmarkHandler.loadBookmarksTreeSafe(config.rootBookmarkId);
+    const hasDifferences = !compareTrees(backendBookmarks, localBookmarks, 'children', (a, b) => {
+      const isAFolder = a.url === undefined;
+      const isBFolder = b.url === undefined;
+      if (isAFolder !== isBFolder) return false;
+      if ((a.title || "") !== (b.title || "")) return false;
+      if (a.url !== b.url) return false;
 
-    // Sync user bookmarks
-    const rootBookmarkId = await bookmarkHandler.getOrCreateRoot(config.rootBookmarkId, config.customRootName);
-    await configUtils.save({ rootBookmarkId });
-    await bookmarkHandler.removeChildrens(rootBookmarkId);
-
-    let tagsCount = 0,
-      categoriesCount = 0,
-      bookmarksCount = 0;
-    await browseTree(bookmarks, async (item, parent, parentResult) => {
-      const parentDirectoryId = parent ? parentResult : rootBookmarkId;
-      switch (item.type) {
-        case "directory":
-          const directory = await bookmarkHandler.createDirectory(parentDirectoryId, item.name);
-          if (!parent) categoriesCount++;
-          else tagsCount++;
-          return directory.id;
-        case "bookmark":
-          await bookmarkHandler.createBMark(parentDirectoryId, {
-            title: item.title,
-            url: item.url,
-          });
-          bookmarksCount++;
-          return null;
-      }
+      return true;
     });
-    setState({ stats: { categoriesCount, tagsCount, bookmarksCount } });
+    setState({ bookmarks: backendBookmarks });
+
+    if (hasDifferences) {
+      console.log("Found differences : sync local bookmarks...")
+      // Sync user bookmarks
+      const rootBookmarkId = await bookmarkHandler.getOrCreateRoot(config.rootBookmarkId, config.customRootName);
+      await configUtils.save({ rootBookmarkId });
+      await bookmarkHandler.removeChildrens(rootBookmarkId);
+
+      let tagsCount = 0,
+        categoriesCount = 0,
+        bookmarksCount = 0;
+      await browseTree(backendBookmarks, async (item, parent, parentResult) => {
+        const parentDirectoryId = parent ? parentResult : rootBookmarkId;
+        switch (item.type) {
+          case "directory":
+            const directory = await bookmarkHandler.createDirectory(parentDirectoryId, item.title);
+            if (!parent) categoriesCount++;
+            else tagsCount++;
+            return directory.id;
+          case "bookmark":
+            await bookmarkHandler.createBMark(parentDirectoryId, {
+              title: item.title,
+              url: item.url,
+            });
+            bookmarksCount++;
+            return null;
+        }
+      });
+      setState({ stats: { categoriesCount, tagsCount, bookmarksCount } });
+    } else {
+      console.log("No differences found, skip syncing...")
+    }
 
     // Prepare next tick
     const sleepDuration = config.autoSyncDelay > 0 ? config.autoSyncDelay * ONE_HOUR : 5000;
@@ -147,6 +162,7 @@ async function runJob() {
     return Promise.resolve();
   } catch (error) {
     const { message } = error;
+    console.error(error);
     setState({ error: message });
     return Promise.resolve();
   }
