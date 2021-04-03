@@ -21,7 +21,10 @@ export default class StrapiHttpClient {
   }
 
   getFoldersTree(tagIds) {
-    return this.fetchStrapi(`folders/tree?tag_id_in=${tagIds.reduce((acc, val) => `${acc},${val.toString()}`)}&no_empty_folders=true`);
+    if(tagIds && tagIds.length > 0){
+      return this.fetchStrapi(`folders/tree?tag_id_in=${tagIds.reduce((acc, val) => `${acc},${val.toString()}`)}&no_empty_folders=true`);
+    }
+    return this.fetchStrapi(`folders/tree?no_empty_folders=true`);
   }
 
   getBookmarks() {

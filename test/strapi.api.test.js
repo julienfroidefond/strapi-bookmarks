@@ -97,12 +97,28 @@ describe("StrapiHttpClient", () => {
       assert.equal(paramValue, "tags-categories/count");
     });
   });
-  describe("#getTagsCategoriesCount()", () => {
-    it("should getTagsCategoriesCount without error", async () => {
+  describe("#getFoldersTree()", () => {
+    it("should getFoldersTree with tags filtering without error", async () => {
       const httpClient = getHttpClient(true);
       const mockFetch = await httpClient.getFoldersTree([1,2]);
       assert.deepEqual(mockFetch, mockReturnRequestObject);
       assert.equal(paramValue, "folders/tree?tag_id_in=1,2&no_empty_folders=true");
+    });
+  });
+  describe("#getFoldersTree()", () => {
+    it("should getFoldersTree empty tags without error", async () => {
+      const httpClient = getHttpClient(true);
+      const mockFetch = await httpClient.getFoldersTree([]);
+      assert.deepEqual(mockFetch, mockReturnRequestObject);
+      assert.equal(paramValue, "folders/tree?no_empty_folders=true");
+    });
+  });
+  describe("#getFoldersTree()", () => {
+    it("should getFoldersTree no tags filter without error", async () => {
+      const httpClient = getHttpClient(true);
+      const mockFetch = await httpClient.getFoldersTree();
+      assert.deepEqual(mockFetch, mockReturnRequestObject);
+      assert.equal(paramValue, "folders/tree?no_empty_folders=true");
     });
   });
 });
