@@ -87,3 +87,5 @@ export const classicalTagsExpectedResult = [
     ],
   },
 ];
+
+export const strapiConfig = { strapiUrl: "http://mock.test/", strapiJwt: "jwtMock" };
