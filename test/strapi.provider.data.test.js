@@ -76,7 +76,7 @@ export const classicalTagsExpectedResult = [
   {
     type: "directory",
     id: -1,
-    title: undefined,
+    title: "Undefined category",
     childrens: [
       {
         id: 3,
