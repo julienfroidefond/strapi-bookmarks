@@ -1,4 +1,4 @@
-import StrapiHttpClient from "../src/js/strapi/api";
+import StrapiHttpClient from "../../src/js/strapi/api";
 import { assert } from "chai";
 
 const spy = { req: null };
@@ -16,7 +16,7 @@ const getHttpClient = isClientMocked => {
   return client;
 };
 
-describe("StrapiHttpClient", () => {
+describe("strapi/api", () => {
   describe("#fetchStrapi()", () => {
     before(function () {
       const MockHeaders = class Headers {
@@ -100,7 +100,7 @@ describe("StrapiHttpClient", () => {
   describe("#getFoldersTree()", () => {
     it("should getFoldersTree with tags filtering without error", async () => {
       const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getFoldersTree([1,2]);
+      const mockFetch = await httpClient.getFoldersTree([1, 2]);
       assert.deepEqual(mockFetch, mockReturnRequestObject);
       assert.equal(paramValue, "folders/tree?tag_id_in=1,2&no_empty_folders=true");
     });

@@ -1,10 +1,10 @@
-import StrapiHttpClient from "../src/js/strapi/api";
-import { loadBookmarksTree } from "../src/js/strapi/provider";
+import StrapiHttpClient from "../../src/js/strapi/api";
+import { loadBookmarksTree } from "../../src/js/strapi/provider";
 import { assert } from "chai";
 import sinon from "sinon";
-import { classicalTags, classicalTagsExpectedResult } from "./strapi.provider.data.test";
+import { classicalTags, classicalTagsExpectedResult } from "./provider.data.test";
 
-describe("StrapiProvider", () => {
+describe("strapi/provider", () => {
   describe("#loadBookmarksTree()", () => {
     before(() => {
       sinon.stub(StrapiHttpClient.prototype, "getTags").returns(classicalTags);
