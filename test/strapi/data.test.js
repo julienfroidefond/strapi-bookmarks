@@ -89,3 +89,100 @@ export const classicalTagsExpectedResult = [
 ];
 
 export const strapiConfig = { strapiUrl: "http://mock.test/", strapiJwt: "jwtMock" };
+
+export const classicalFolders = [
+  {
+    id: 1,
+    name: "A",
+    parent: null,
+    created_at: "2021-04-02T20:52:42.989Z",
+    updated_at: "2021-04-02T21:16:15.966Z",
+    bookmarks: [
+      {
+        id: 1,
+        title: "B1",
+        url: "http://dzad.fr",
+        description: null,
+        created_at: "2021-04-02T20:51:22.590Z",
+        updated_at: "2021-04-02T21:15:26.871Z",
+      },
+    ],
+    children: [
+      {
+        id: 2,
+        name: "B",
+        parent: {
+          id: 1,
+          name: "A",
+          parent: null,
+          created_at: "2021-04-02T20:52:42.989Z",
+          updated_at: "2021-04-02T21:16:15.966Z",
+        },
+        created_at: "2021-04-02T20:52:52.566Z",
+        updated_at: "2021-04-02T21:16:25.494Z",
+        bookmarks: [
+          {
+            id: 2,
+            title: "B2",
+            url: "http://fezfzefz.fez",
+            description: null,
+            created_at: "2021-04-02T20:52:15.527Z",
+            updated_at: "2021-04-02T21:15:35.603Z",
+          },
+          {
+            id: 3,
+            title: "B3",
+            url: "http://dadazdaf.fre",
+            description: null,
+            created_at: "2021-04-02T20:52:30.298Z",
+            updated_at: "2021-04-02T21:15:42.543Z",
+          },
+        ],
+        children: [
+          {
+            id: 4,
+            name: "D",
+            parent: {
+              id: 2,
+              name: "B",
+              parent: 1,
+              created_at: "2021-04-02T20:52:52.566Z",
+              updated_at: "2021-04-02T21:16:25.494Z",
+            },
+            created_at: "2021-04-02T20:53:21.341Z",
+            updated_at: "2021-04-02T21:16:36.852Z",
+            bookmarks: [
+              {
+                id: 2,
+                title: "B2",
+                url: "http://fezfzefz.fez",
+                description: null,
+                created_at: "2021-04-02T20:52:15.527Z",
+                updated_at: "2021-04-02T21:15:35.603Z",
+              },
+            ],
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 3,
+    name: "C",
+    parent: null,
+    created_at: "2021-04-02T20:53:03.600Z",
+    updated_at: "2021-04-02T21:16:31.834Z",
+    bookmarks: [
+      {
+        id: 2,
+        title: "B2",
+        url: "http://fezfzefz.fez",
+        description: null,
+        created_at: "2021-04-02T20:52:15.527Z",
+        updated_at: "2021-04-02T21:15:35.603Z",
+      },
+    ],
+    children: [],
+  },
+];
