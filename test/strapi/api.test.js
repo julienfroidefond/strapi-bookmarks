@@ -1,124 +1,78 @@
 import StrapiHttpClient from "../../src/js/strapi/api";
-import { assert } from "chai";
+import { assert, expect } from "chai";
+import { strapiConfig } from "./data.test";
 
-const spy = { req: null };
-
+const spy = {};
 const mockReturnRequestObject = { field1: "valueMocked" };
 
-let paramValue = "";
-const getHttpClient = isClientMocked => {
-  const client = new StrapiHttpClient({ strapiUrl: "http://mock.test/", strapiJwt: "jwtMock" });
-  if (!isClientMocked) return client;
-  client.fetchStrapi = p => {
-    paramValue = p;
-    return new Promise(resolve => resolve(mockReturnRequestObject));
-  };
-  return client;
+const standardMockAndTest = async (functionName, urlResult) => {
+  const httpClient = new StrapiHttpClient(strapiConfig);
+  const mockFetch = await httpClient[functionName]();
+  assert.deepEqual(spy.url, `http://mock.test/${urlResult}`);
+  assert.deepEqual(mockFetch, mockReturnRequestObject);
 };
 
 describe("strapi/api", () => {
+  before(() => {
+    global.fetch = (url, config) => {
+      spy.url = url;
+      spy.config = config;
+      return new Promise(resolve => {
+        resolve({ ok: true, json: () => mockReturnRequestObject });
+      });
+    };
+  });
   describe("#fetchStrapi()", () => {
-    before(function () {
-      const MockHeaders = class Headers {
-        constructor() {}
-        append(key, value) {
-          spy.headerKey = key;
-          spy.headerValue = value;
-        }
-      };
-      const MockRequest = class Request {
-        constructor(req) {
-          spy.req = req;
-        }
-      };
-      global.Request = MockRequest;
-      global.Headers = MockHeaders;
-      global.fetch = () =>
-        new Promise(resolve => {
-          resolve({ ok: true, json: () => mockReturnRequestObject });
-        });
-    });
     it("should fetchStrapi without error", async () => {
-      const httpClient = getHttpClient(false);
+      const httpClient = new StrapiHttpClient(strapiConfig);
       const mockFetch = await httpClient.fetchStrapi("fetchMock");
       assert.deepEqual(spy, {
-        req: "http://mock.test/fetchMock",
-        headerKey: "Authorization",
-        headerValue: "Bearer jwtMock",
+        url: "http://mock.test/fetchMock",
+        config: { method: "GET", headers: { Authorization: "Bearer jwtMock" } },
       });
       assert.deepEqual(mockFetch, mockReturnRequestObject);
     });
   });
-  describe("#getBookmarks()", () => {
+  describe("standardGetters", () => {
     it("should getBookmarks without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getBookmarks();
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "bookmarks");
+      await standardMockAndTest("getBookmarks", "bookmarks");
     });
-  });
-  describe("#getBookmarksCount()", () => {
     it("should getBookmarksCount without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getBookmarksCount();
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "bookmarks/count");
+      await standardMockAndTest("getBookmarksCount", "bookmarks/count");
     });
-  });
-  describe("#getTags()", () => {
     it("should getTags without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getTags();
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "tags?_sort=name:ASC");
+      await standardMockAndTest("getTags", "tags?_sort=name:ASC");
     });
-  });
-  describe("#getTagsCount()", () => {
     it("should getTagsCount without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getTagsCount();
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "tags/count");
+      await standardMockAndTest("getTagsCount", "tags/count");
     });
-  });
-  describe("#getTagsCategories()", () => {
     it("should getTagsCategories without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getTagsCategories();
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "tags-categories?_sort=name:ASC");
+      await standardMockAndTest("getTagsCategories", "tags-categories?_sort=name:ASC");
     });
-  });
-  describe("#getTagsCategoriesCount()", () => {
     it("should getTagsCategoriesCount without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getTagsCategoriesCount();
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "tags-categories/count");
-    });
-  });
-  describe("#getFoldersTree()", () => {
-    it("should getFoldersTree with tags filtering without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getFoldersTree([1, 2]);
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "folders/tree?tag_id_in=1,2&no_empty_folders=true");
-    });
-  });
-  describe("#getFoldersTree()", () => {
-    it("should getFoldersTree empty tags without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getFoldersTree([]);
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "folders/tree?no_empty_folders=true");
+      await standardMockAndTest("getTagsCategoriesCount", "tags-categories/count");
     });
   });
   describe("#getFoldersTree()", () => {
     it("should getFoldersTree no tags filter without error", async () => {
-      const httpClient = getHttpClient(true);
-      const mockFetch = await httpClient.getFoldersTree();
-      assert.deepEqual(mockFetch, mockReturnRequestObject);
-      assert.equal(paramValue, "folders/tree?no_empty_folders=true");
+      await standardMockAndTest("getFoldersTree", "folders/tree?no_empty_folders=true");
+    });
+    it("should getFoldersTree with tags filtering without error", async () => {
+      const httpClient = new StrapiHttpClient(strapiConfig);
+      await httpClient.getFoldersTree([1, 2]);
+      assert.deepEqual(spy.url, "http://mock.test/folders/tree?tag_id_in=1,2&no_empty_folders=true");
+    });
+    it("should getFoldersTree empty tags without error", async () => {
+      const httpClient = new StrapiHttpClient(strapiConfig);
+      await httpClient.getFoldersTree([]);
+      assert.equal(spy.url, "http://mock.test/folders/tree?no_empty_folders=true");
+    });
+  });
+  describe("constructor", () => {
+    it("should throw with no config", async () => {
+      try {
+        expect(new StrapiHttpClient()).to.throw("Strapi client could not be invoked without a configuration");
+      } catch (e) {}
     });
   });
 });

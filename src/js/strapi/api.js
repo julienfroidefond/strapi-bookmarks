@@ -1,28 +1,28 @@
 export default class StrapiHttpClient {
   constructor(config) {
-    if (config) {
-      this.routeBase = config.strapiUrl;
-      this.jwt = config.strapiJwt;
-    }
+    if (!config) throw new Error("Strapi client could not be invoked without a configuration");
+
+    this.routeBase = config.strapiUrl;
+    this.jwt = config.strapiJwt;
   }
 
   fetchStrapi(path) {
-    const headers = new Headers();
-    headers.append("Authorization", "Bearer " + this.jwt);
-    return fetch(
-      new Request(this.routeBase + path, {
-        method: "GET",
-        headers,
-      }),
-    ).then(response => {
+    return fetch(this.routeBase + path, {
+      method: "GET",
+      headers: { Authorization: `Bearer ${this.jwt}` },
+    }).then(response => {
       if (!response.ok) throw new Error("Fail to fetch Strapi server");
       return response.json();
     });
   }
 
   getFoldersTree(tagIds) {
-    if(tagIds && tagIds.length > 0){
-      return this.fetchStrapi(`folders/tree?tag_id_in=${tagIds.reduce((acc, val) => `${acc},${val.toString()}`)}&no_empty_folders=true`);
+    if (tagIds && tagIds.length > 0) {
+      return this.fetchStrapi(
+        `folders/tree?tag_id_in=${tagIds.reduce(
+          (acc, val) => `${acc},${val.toString()}`,
+        )}&no_empty_folders=true`,
+      );
     }
     return this.fetchStrapi(`folders/tree?no_empty_folders=true`);
   }
