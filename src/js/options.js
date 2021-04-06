@@ -1,6 +1,5 @@
 import "../css/options.css";
 
-import $ from "jquery";
 import * as configUtils from "./utils/config";
 import { waitPromise } from "./utils/time";
 import { ACTION_FORCE_SYNC } from "./utils/actions";
@@ -15,12 +14,12 @@ async function onConfigSaved(e) {
   e.target.innerText = previousText;
 }
 
-// Saves options to chrome.storage
 async function saveOptions(e) {
-  const strapiUrl = $("#strapi-url").val();
-  const strapiJwt = $("#strapi-jwt").val();
-  const customRootName = $("#custom-root-name").val();
-  const autoSyncDelay = $("#auto-sync-delay").val();
+  const strapiUrl = document.getElementById("strapi-url").value;
+  const strapiJwt = document.getElementById("strapi-jwt").value;
+  const customRootName = document.getElementById("custom-root-name").value;
+  const autoSyncDelay = document.getElementById("auto-sync-delay").value;
+
   const newConfig = {
     strapiUrl,
     strapiJwt,
@@ -32,8 +31,6 @@ async function saveOptions(e) {
   await onConfigSaved(e);
 }
 
-// Restores select box and checkbox state using the preferences
-// stored in chrome.storage.
 async function displayOptions() {
   const config = await configUtils.load({
     strapiUrl: "",
@@ -41,10 +38,10 @@ async function displayOptions() {
     customRootName: "",
     autoSyncDelay: 1,
   });
-  $("#strapi-jwt").val(config.strapiJwt);
-  $("#strapi-url").val(config.strapiUrl);
-  $("#custom-root-name").val(config.customRootName);
-  $("#auto-sync-delay").val(config.autoSyncDelay);
+  document.getElementById("strapi-url").value = config.strapiUrl;
+  document.getElementById("strapi-jwt").value = config.strapiJwt;
+  document.getElementById("custom-root-name").value = config.customRootName;
+  document.getElementById("auto-sync-delay").value = config.autoSyncDelay;
 }
 
 async function restoreOptions(e) {
