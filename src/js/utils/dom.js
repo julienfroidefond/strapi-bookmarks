@@ -9,3 +9,8 @@ export const hideById = eltId => {
 export const setHtmlById = (eltId, html) => {
   document.getElementById(eltId).innerHTML = html;
 };
+
+export const toggleDisableById = (eltId, enable) => {
+  if (enable) document.getElementById(eltId).setAttribute("disabled", enable);
+  else document.getElementById(eltId).removeAttribute("disabled");
+};

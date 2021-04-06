@@ -8,7 +8,7 @@ import {
 } from "./utils/actions";
 import { waitPromise } from "./utils/time";
 import StrapiHttpClient from "./strapi/api";
-import { hideById, showById, setHtmlById } from "./utils/dom";
+import { hideById, showById, setHtmlById, toggleDisableById } from "./utils/dom";
 
 const channelDaemonPort = chrome.extension.connect({ name: "channel-sync-daemon" });
 const getState = async () => {
@@ -59,9 +59,7 @@ export const init = async () => {
     tagsCategoriesCount = 0,
     tagsCount = 0;
   showById("global-loader");
-  if (!config.isConfigured)
-    document.getElementsByClassName("force-sync")[0].setAttribute("disabled", !config.isConfigured);
-  else document.getElementsByClassName("force-sync")[0].removeAttribute("disabled");
+  toggleDisableById("force-sync")(!config.isConfigured);
   if (config.isConfigured) {
     const httpClient = new StrapiHttpClient(config);
     try {
