@@ -191,25 +191,30 @@ export const classicalFoldersExpectedResult = [
     type: "directory",
     title: "A",
     childrens: [
-      { id: 1, itle: "B1", url: "http://dzad.fr" },
+      { id: 1, title: "B1", url: "http://dzad.fr", type: "bookmark" },
       {
         id: 2,
         type: "directory",
         title: "B",
         childrens: [
-          { id: 2, itle: "B2", url: "http://fezfzefz.fez" },
-          { id: 3, itle: "B3", url: "http://dadazdaf.fre" },
+          { id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" },
+          { id: 3, title: "B3", url: "http://dadazdaf.fre", type: "bookmark" },
           {
             id: 4,
             type: "directory",
             title: "D",
-            childrens: [{ id: 2, itle: "B2", url: "http://fezfzefz.fez" }],
+            childrens: [{ id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" }],
           },
         ],
       },
     ],
   },
-  { id: 3, type: "directory", title: "C", childrens: [{ id: 2, itle: "B2", url: "http://fezfzefz.fez" }] },
+  {
+    id: 3,
+    type: "directory",
+    title: "C",
+    childrens: [{ id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" }],
+  },
 ];
 
 export const strapiConfig = { strapiUrl: "http://mock.test/", strapiJwt: "jwtMock" };

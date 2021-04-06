@@ -2,10 +2,20 @@ import StrapiHttpClient from "./api";
 
 const UNDEFINED_CATEGORY_LABEL = "Undefined category";
 
+/**
+ * Mapping a folder to a chrome directory with bookmarks
+ * @param {Object} folder folder from the server
+ * @returns
+ */
 const mapServerFolder = folder => {
   const { id, name, bookmarks, children } = folder;
   let childrens = [];
-  childrens = bookmarks.map(bookmark => ({ id: bookmark.id, itle: bookmark.title, url: bookmark.url }));
+  childrens = bookmarks.map(bookmark => ({
+    id: bookmark.id,
+    title: bookmark.title,
+    url: bookmark.url,
+    type: "bookmark",
+  }));
   let childrenMapped = children.map(mapServerFolder);
   childrens.push(...childrenMapped);
   return {
