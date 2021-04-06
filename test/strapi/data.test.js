@@ -88,8 +88,6 @@ export const classicalTagsExpectedResult = [
   },
 ];
 
-export const strapiConfig = { strapiUrl: "http://mock.test/", strapiJwt: "jwtMock" };
-
 export const classicalFolders = [
   {
     id: 1,
@@ -186,3 +184,32 @@ export const classicalFolders = [
     children: [],
   },
 ];
+
+export const classicalFoldersExpectedResult = [
+  {
+    id: 1,
+    type: "directory",
+    title: "A",
+    childrens: [
+      { id: 1, itle: "B1", url: "http://dzad.fr" },
+      {
+        id: 2,
+        type: "directory",
+        title: "B",
+        childrens: [
+          { id: 2, itle: "B2", url: "http://fezfzefz.fez" },
+          { id: 3, itle: "B3", url: "http://dadazdaf.fre" },
+          {
+            id: 4,
+            type: "directory",
+            title: "D",
+            childrens: [{ id: 2, itle: "B2", url: "http://fezfzefz.fez" }],
+          },
+        ],
+      },
+    ],
+  },
+  { id: 3, type: "directory", title: "C", childrens: [{ id: 2, itle: "B2", url: "http://fezfzefz.fez" }] },
+];
+
+export const strapiConfig = { strapiUrl: "http://mock.test/", strapiJwt: "jwtMock" };
