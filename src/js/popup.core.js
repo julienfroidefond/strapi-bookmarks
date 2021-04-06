@@ -1,5 +1,3 @@
-import $ from "jquery";
-
 import * as configUtils from "./utils/config";
 import {
   postMessageAndWaitAck,
@@ -10,6 +8,7 @@ import {
 } from "./utils/actions";
 import { waitPromise } from "./utils/time";
 import StrapiHttpClient from "./strapi/api";
+import { hideById, showById, setHtmlById } from "./utils/dom";
 
 const channelDaemonPort = chrome.extension.connect({ name: "channel-sync-daemon" });
 const getState = async () => {
@@ -28,8 +27,8 @@ const renderBookmarksStats = state => {
   const {
     stats: { categoriesCount, bookmarksCount },
   } = state;
-  $("#synced-tags-categories-count").html(categoriesCount);
-  $("#synced-bookmarks-count").html(bookmarksCount);
+  setHtmlById("synced-tags-categories-count", categoriesCount);
+  setHtmlById("synced-bookmarks-count", bookmarksCount);
 };
 /**
  * Handling the http errors
@@ -37,18 +36,18 @@ const renderBookmarksStats = state => {
  * @returns
  */
 const handleError = error => {
-  $("#warning-tags").show();
-  $("#sync-section").hide();
-  $("#error-message").html(error);
+  showById("warning-tags");
+  hideById("sync-section") = "none";
+  setHtmlById("error-message", error);
 };
 
 /**
  * Clean displayed errors
  */
 const cleanError = () => {
-  $("#warning-tags").hide();
-  $("#sync-section").show();
-  $("#error-message").html("");
+  hideById("warning-tags");
+  showById("sync-section");
+  setHtmlById("error-message", "");
 };
 
 export const init = async () => {
@@ -59,8 +58,10 @@ export const init = async () => {
     bookmarksCount = 0,
     tagsCategoriesCount = 0,
     tagsCount = 0;
-  $(".loader").show();
-  $(".force-sync").attr("disabled", !config.isConfigured);
+  showById("global-loader");
+  if (!config.isConfigured)
+    document.getElementsByClassName("force-sync")[0].setAttribute("disabled", !config.isConfigured);
+  else document.getElementsByClassName("force-sync")[0].removeAttribute("disabled");
   if (config.isConfigured) {
     const httpClient = new StrapiHttpClient(config);
     try {
@@ -76,29 +77,25 @@ export const init = async () => {
       handleError(error);
     }
   }
-  $(".loader").hide();
+  hideById("global-loader");
 
   // Render "Datas"
-  const tagsMenu = $("#menu-tags-strapi");
+  const tagsMenu = document.getElementById("menu-tags-strapi");
   for (var i in tags) {
     const item = tags[i];
     if (item.bookmarks.length > 0)
-      tagsMenu.append(
-        `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.bookmarks.length})</span>`,
-      );
+      tagsMenu.innerHTML += `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.bookmarks.length})</span>`;
   }
-  const categoriesMenu = $("#menu-tags-categories-strapi");
+  const categoriesMenu = document.getElementById("menu-tags-categories-strapi");
   for (var i in categories) {
     const item = categories[i];
-    categoriesMenu.append(
-      `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.tags.length})</span>`,
-    );
+    categoriesMenu.innerHTML += `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.tags.length})</span>`;
   }
 
   // Render "Server infos"
-  $("#bookmarks-count").html(bookmarksCount);
-  $("#tags-count").html(tagsCount);
-  $("#tags-categories-count").html(tagsCategoriesCount);
+  setHtmlById("bookmarks-count", bookmarksCount);
+  setHtmlById("tags-count", tagsCount);
+  setHtmlById("tags-categories-count", tagsCategoriesCount);
 
   // Render Daemon state
   const state = await getState();
@@ -108,7 +105,7 @@ export const init = async () => {
 
   renderBookmarksStats(state);
   if (!config.isConfigured) {
-    $("#onboarding").removeClass("hidden");
+    document.getElementById("onboarding").classList.remove("hidden");
   }
 };
 
