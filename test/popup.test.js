@@ -17,7 +17,7 @@ describe("popup.js", () => {
   before(() => {
     chrome.extension.connect = () => {};
     global.chrome = chrome;
-    global.window = dom.window;
+    global.document = dom.window.document;
 
     sandbox.stub(configUtils, "load").returns({ isConfigured: false });
     sandbox.stub(actionUtils, "postMessageAndWaitAck").returns(() => {});
@@ -37,11 +37,10 @@ describe("popup.js", () => {
       const { init } = require("../src/js/popup.core");
 
       await init();
-      const forceSyncDomDisabledAttr = global.window.document
-        .getElementsByClassName("force-sync")[0]
-        .getAttribute("disabled");
 
-      assert(forceSyncDomDisabledAttr === "disabled", "Force sync is disabled");
+      const forceSyncDomDisabledAttr = global.document.getElementById("force-sync").getAttribute("disabled");
+
+      assert(forceSyncDomDisabledAttr === "disabled", "Force sync should be disabled");
     });
   });
 });

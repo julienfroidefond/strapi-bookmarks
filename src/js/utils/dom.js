@@ -11,6 +11,6 @@ export const setHtmlById = (eltId, html) => {
 };
 
 export const toggleDisableById = (eltId, enable) => {
-  if (enable) document.getElementById(eltId).setAttribute("disabled", enable);
+  if (enable) document.getElementById(eltId).setAttribute("disabled", "disabled");
   else document.getElementById(eltId).removeAttribute("disabled");
 };

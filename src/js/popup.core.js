@@ -37,7 +37,7 @@ const renderBookmarksStats = state => {
  */
 const handleError = error => {
   showById("warning-tags");
-  hideById("sync-section") = "none";
+  hideById("sync-section");
   setHtmlById("error-message", error);
 };
 
@@ -59,7 +59,7 @@ export const init = async () => {
     tagsCategoriesCount = 0,
     tagsCount = 0;
   showById("global-loader");
-  toggleDisableById("force-sync")(!config.isConfigured);
+  toggleDisableById("force-sync", !config.isConfigured);
   if (config.isConfigured) {
     const httpClient = new StrapiHttpClient(config);
     try {
