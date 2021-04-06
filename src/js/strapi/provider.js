@@ -16,7 +16,7 @@ const mapServerFolder = folder => {
     url: bookmark.url,
     type: "bookmark",
   }));
-  let childrenMapped = children.map(mapServerFolder);
+  let childrenMapped = children ? children.map(mapServerFolder) : [];
   childrens.push(...childrenMapped);
   return {
     id,
