@@ -1,9 +1,9 @@
 export const showById = eltId => {
-  document.getElementById(eltId).classList.display = "block";
+  document.getElementById(eltId).style.display = "block";
 };
 
 export const hideById = eltId => {
-  document.getElementById(eltId).classList.display = "none";
+  document.getElementById(eltId).style.display = "none";
 };
 
 export const setHtmlById = (eltId, html) => {
