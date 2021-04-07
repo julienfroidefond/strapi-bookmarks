@@ -1,3 +1,12 @@
+## [3.0.1](https://github.com/julienfroidefond/strapi-bookmarks/compare/v3.0.0...v3.0.1) (2021-04-07)
+
+
+### Bug Fixes
+
+* **strapiprovider:** bug when no children ([a7a789b](https://github.com/julienfroidefond/strapi-bookmarks/commit/a7a789bcf0517b7cfcd4cd7a0836d5c3e30f09f1))
+
+
+
 # [3.0.0](https://github.com/julienfroidefond/strapi-bookmarks/compare/v2.3.2...v3.0.0) (2021-04-06)
 
 
