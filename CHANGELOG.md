@@ -1,3 +1,12 @@
+## [3.0.2](https://github.com/julienfroidefond/strapi-bookmarks/compare/v3.0.1...v3.0.2) (2021-04-07)
+
+
+### Bug Fixes
+
+* **ui:** bad js on hide / show DOM elt ([5a07b91](https://github.com/julienfroidefond/strapi-bookmarks/commit/5a07b9147540a94a5eb6ffe4b8b8299a08987c20)), closes [#74](https://github.com/julienfroidefond/strapi-bookmarks/issues/74)
+
+
+
 ## [3.0.1](https://github.com/julienfroidefond/strapi-bookmarks/compare/v3.0.0...v3.0.1) (2021-04-07)
 
 
