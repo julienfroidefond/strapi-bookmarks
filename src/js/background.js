@@ -8,7 +8,7 @@ import { waitPromise } from "./utils/time";
 import bookmarkHandler from "./bookmarkHandler";
 import * as configUtils from "./utils/config";
 import * as strapiProvider from "./strapi/provider";
-import { compareTrees, browseTree } from "./utils/graph"
+import { compareTrees, browseTree } from "./utils/graph";
 
 const ONE_HOUR = 3600000;
 
@@ -37,7 +37,7 @@ async function bootDaemon() {
     console.log("Connected '%s'...", port.name);
     messagePort = port;
     if (!port.onMessage.hasListener(onMessage)) {
-      console.log("Register onMessage listener")
+      console.log("Register onMessage listener");
       port.onMessage.addListener(onMessage);
     }
   });
@@ -107,7 +107,7 @@ async function runJob() {
     // Fetch bookmarks
     const backendBookmarks = await strapiProvider.loadBookmarksTree(config);
     const localBookmarks = await bookmarkHandler.loadBookmarksTreeSafe(config.rootBookmarkId);
-    const hasDifferences = !compareTrees(backendBookmarks, localBookmarks, 'children', (a, b) => {
+    const hasDifferences = !compareTrees(backendBookmarks, localBookmarks, "children", (a, b) => {
       const isAFolder = a.url === undefined;
       const isBFolder = b.url === undefined;
       if (isAFolder !== isBFolder) return false;
@@ -119,9 +119,12 @@ async function runJob() {
     setState({ bookmarks: backendBookmarks });
 
     if (hasDifferences) {
-      console.log("Found differences : sync local bookmarks...")
+      console.log("Found differences : sync local bookmarks...");
       // Sync user bookmarks
-      const rootBookmarkId = await bookmarkHandler.getOrCreateRoot(config.rootBookmarkId, config.customRootName);
+      const rootBookmarkId = await bookmarkHandler.getOrCreateRoot(
+        config.rootBookmarkId,
+        config.customRootName,
+      );
       await configUtils.save({ rootBookmarkId });
       await bookmarkHandler.removeChildrens(rootBookmarkId);
 
@@ -147,7 +150,7 @@ async function runJob() {
       });
       setState({ stats: { categoriesCount, tagsCount, bookmarksCount } });
     } else {
-      console.log("No differences found, skip syncing...")
+      console.log("No differences found, skip syncing...");
     }
 
     // Prepare next tick
@@ -169,5 +172,5 @@ async function runJob() {
 }
 
 chrome.runtime.onInstalled.addListener(() => bootDaemon());
-console.log("background.js loaded")
+console.log("background.js loaded");
 bootDaemon();

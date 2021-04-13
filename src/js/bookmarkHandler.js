@@ -17,15 +17,18 @@ const createRoot = rootBookmarkName =>
     );
   });
 
-const getById = bookmarkId => new Promise(resolve => chrome.bookmarks.get(bookmarkId, (bookmarks) => {
-  if (!bookmarks || bookmarks.length === 0) {
-    return resolve(null);
-  }
-  resolve(bookmarks[0].id);
-}));
+const getById = bookmarkId =>
+  new Promise(resolve =>
+    chrome.bookmarks.get(bookmarkId, bookmarks => {
+      if (!bookmarks || bookmarks.length === 0) {
+        return resolve(null);
+      }
+      resolve(bookmarks[0].id);
+    }),
+  );
 
 const getOrCreateRoot = (rootBookmarkId, rootBookmarkName) =>
-  new Promise(async (resolve) => {
+  new Promise(async resolve => {
     if (!rootBookmarkId) {
       return resolve(await createRoot(rootBookmarkName));
     }
@@ -72,15 +75,17 @@ const removeRoot = rootBookmarkName =>
     });
   });
 
-const removeTree = (bookmarkId) => new Promise(resolve => chrome.bookmarks.removeTree(bookmarkId, resolve));
+const removeTree = bookmarkId => new Promise(resolve => chrome.bookmarks.removeTree(bookmarkId, resolve));
 
 const removeChildrens = bookmarkId =>
   new Promise((resolve, reject) => {
-    chrome.bookmarks.getChildren(bookmarkId, (childrens) => {
+    chrome.bookmarks.getChildren(bookmarkId, childrens => {
       if (!childrens) return Promise.resolve([]);
-      Promise.all(childrens.map(element => removeTree(element.id))).then(resolve).catch(reject);
-    })
-  })
+      Promise.all(childrens.map(element => removeTree(element.id)))
+        .then(resolve)
+        .catch(reject);
+    });
+  });
 
 const getRoot = () =>
   new Promise(resolve => {
@@ -122,13 +127,14 @@ const bookmarksCount = () =>
       }),
   );
 
-const loadBookmarksTreeSafe = (rootId) => new Promise((resolve) => {
-  if (!rootId) return resolve([]);
-  chrome.bookmarks.getSubTree(rootId, (results) => {
-    if (!results || results.length == 0) return resolve([]);
-    resolve(results[0].children);
+const loadBookmarksTreeSafe = rootId =>
+  new Promise(resolve => {
+    if (!rootId) return resolve([]);
+    chrome.bookmarks.getSubTree(rootId, results => {
+      if (!results || results.length == 0) return resolve([]);
+      resolve(results[0].children);
+    });
   });
-});
 
 export default {
   bookmarksCount,

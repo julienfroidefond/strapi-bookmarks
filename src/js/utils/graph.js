@@ -37,11 +37,14 @@ export const compareTrees = (treeA, treeB, childrenKey, compareFn) => {
     }
     if (treeA[i][childrenKey] && treeB[i][childrenKey]) {
       // Node = same + children presence different
-      if ((!treeA[i][childrenKey] && treeB[i][childrenKey]) || (treeA[i][childrenKey] && !treeB[i][childrenKey])) return false;
+      if (
+        (!treeA[i][childrenKey] && treeB[i][childrenKey]) ||
+        (treeA[i][childrenKey] && !treeB[i][childrenKey])
+      )
+        return false;
       // Deep compare
-      if (!compareTrees(treeA[i][childrenKey], treeB[i][childrenKey], childrenKey, compareFn)) return false
+      if (!compareTrees(treeA[i][childrenKey], treeB[i][childrenKey], childrenKey, compareFn)) return false;
     }
-
   }
-  return result
-}
+  return result;
+};

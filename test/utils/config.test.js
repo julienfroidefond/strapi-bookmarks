@@ -4,7 +4,6 @@ import { expect, assert } from "chai";
 import chrome from "sinon-chrome/extensions";
 import { match } from "sinon";
 
-
 describe("utils/config", () => {
   before(() => {
     global.chrome = chrome;
@@ -23,8 +22,8 @@ describe("utils/config", () => {
     it("should return a Promise resolving an object", async () => {
       const promise = load();
       const result = await promise;
-      expect(promise).to.be.a('promise');
-      expect(result).to.be.an('object');
+      expect(promise).to.be.a("promise");
+      expect(result).to.be.an("object");
     });
 
     it("should return isConfigured=false by default", async () => {
@@ -44,7 +43,7 @@ describe("utils/config", () => {
 
     it("should returns a Promise", () => {
       const result = save();
-      expect(result).to.be.a('promise');
+      expect(result).to.be.a("promise");
     });
 
     it("should ignore unknown keys", async () => {
@@ -55,13 +54,7 @@ describe("utils/config", () => {
     });
 
     it("should accept ALL valid keys", async () => {
-      const validKeys = [
-        "autoSyncDelay",
-        "customRootName",
-        "rootBookmarkId",
-        "strapiJwt",
-        "strapiUrl",
-      ];
+      const validKeys = ["autoSyncDelay", "customRootName", "rootBookmarkId", "strapiJwt", "strapiUrl"];
       const config = validKeys.reduce((agg, key) => ({ ...agg, [key]: "value" }), {});
       await save(config);
       expect(chrome.storage.sync.set).to.have.been.calledWithMatch(match(config));
@@ -79,7 +72,7 @@ describe("utils/config", () => {
 
     it("should return a promise", () => {
       const result = clear();
-      expect(result).to.be.a('promise');
+      expect(result).to.be.a("promise");
     });
 
     it("should clear without error", async () => {
