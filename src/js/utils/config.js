@@ -20,16 +20,16 @@ export const defaultConfig = {
  *
  * @returns {Promise} Promise resolving the last persisted configuration
  */
- export const load = (defaultValues = defaultConfig) =>
- new Promise(resolve => {
-   chrome.storage.sync.get(defaultValues, result => {
-     const filledWithDefaultValues = Object.keys(result).reduce((agg, curr) => {
-       agg[curr] = result[curr] || defaultConfig[curr];
-       return agg;
-     }, {});
-     resolve(filledWithDefaultValues);
-   });
- });
+export const load = (defaultValues = defaultConfig) =>
+  new Promise(resolve => {
+    chrome.storage.sync.get(defaultValues, result => {
+      const filledWithDefaultValues = Object.keys(result).reduce((agg, curr) => {
+        agg[curr] = result[curr] || defaultConfig[curr];
+        return agg;
+      }, {});
+      resolve(filledWithDefaultValues);
+    });
+  });
 
 /**
  * Persist configuration to chrome storage

@@ -29,7 +29,7 @@ export const browseTree = (tree, fn, parent = null, parentResult = null) =>
  * @returns {boolean} Return true if trees are equal based on the given predicate
  */
 export const compareTrees = (treeA, treeB, childrenKey, compareFn) => {
-  let result = true;
+  const result = true;
   for (const i in treeA) {
     // Node = differents
     if (!treeA[i] || !treeB[i] || !compareFn(treeA[i], treeB[i])) {
@@ -37,11 +37,14 @@ export const compareTrees = (treeA, treeB, childrenKey, compareFn) => {
     }
     if (treeA[i][childrenKey] && treeB[i][childrenKey]) {
       // Node = same + children presence different
-      if ((!treeA[i][childrenKey] && treeB[i][childrenKey]) || (treeA[i][childrenKey] && !treeB[i][childrenKey])) return false;
+      if (
+        (!treeA[i][childrenKey] && treeB[i][childrenKey]) ||
+        (treeA[i][childrenKey] && !treeB[i][childrenKey])
+      )
+        return false;
       // Deep compare
-      if (!compareTrees(treeA[i][childrenKey], treeB[i][childrenKey], childrenKey, compareFn)) return false
+      if (!compareTrees(treeA[i][childrenKey], treeB[i][childrenKey], childrenKey, compareFn)) return false;
     }
-
   }
-  return result
-}
+  return result;
+};

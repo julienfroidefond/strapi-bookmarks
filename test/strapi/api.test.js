@@ -1,5 +1,5 @@
-import StrapiHttpClient from "../../src/js/strapi/api";
 import { assert, expect } from "chai";
+import StrapiHttpClient from "../../src/js/strapi/api";
 import { strapiConfig } from "./data.test";
 
 const spy = {};

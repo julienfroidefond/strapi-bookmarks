@@ -1,7 +1,7 @@
-import StrapiHttpClient from "../../src/js/strapi/api";
-import { loadBookmarksTree } from "../../src/js/strapi/provider";
 import { assert } from "chai";
 import sinon from "sinon";
+import StrapiHttpClient from "../../src/js/strapi/api";
+import { loadBookmarksTree } from "../../src/js/strapi/provider";
 import { classicalFoldersExpectedResult, classicalFolders, strapiConfig } from "./data.test";
 
 describe("strapi/provider", () => {

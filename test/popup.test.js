@@ -3,12 +3,12 @@ import chrome from "sinon-chrome/extensions";
 import sinon from "sinon";
 import { readFileSync } from "fs";
 import path from "path";
+import { assert } from "chai";
 import * as configUtils from "../src/js/utils/config";
 import * as actionUtils from "../src/js/utils/actions";
-import { assert } from "chai";
 
-var jsonPath = path.join(__dirname, "..", "src", "popup.html");
-var jsonString = readFileSync(jsonPath, "utf8");
+const jsonPath = path.join(__dirname, "..", "src", "popup.html");
+const jsonString = readFileSync(jsonPath, "utf8");
 
 const sandbox = sinon.createSandbox();
 const dom = new JSDOM(jsonString);

@@ -8,7 +8,7 @@ const createRoot = rootBookmarkName =>
       },
       rootNode => {
         console.log("root bookmark created =>", rootNode.id);
-        //register id
+        // register id
         chrome.storage.local.set({
           rootBookmarkId: rootNode.id,
         });
@@ -17,15 +17,18 @@ const createRoot = rootBookmarkName =>
     );
   });
 
-const getById = bookmarkId => new Promise(resolve => chrome.bookmarks.get(bookmarkId, (bookmarks) => {
-  if (!bookmarks || bookmarks.length === 0) {
-    return resolve(null);
-  }
-  resolve(bookmarks[0].id);
-}));
+const getById = bookmarkId =>
+  new Promise(resolve =>
+    chrome.bookmarks.get(bookmarkId, bookmarks => {
+      if (!bookmarks || bookmarks.length === 0) {
+        return resolve(null);
+      }
+      resolve(bookmarks[0].id);
+    }),
+  );
 
 const getOrCreateRoot = (rootBookmarkId, rootBookmarkName) =>
-  new Promise(async (resolve) => {
+  new Promise(async resolve => {
     if (!rootBookmarkId) {
       return resolve(await createRoot(rootBookmarkName));
     }
@@ -72,15 +75,17 @@ const removeRoot = rootBookmarkName =>
     });
   });
 
-const removeTree = (bookmarkId) => new Promise(resolve => chrome.bookmarks.removeTree(bookmarkId, resolve));
+const removeTree = bookmarkId => new Promise(resolve => chrome.bookmarks.removeTree(bookmarkId, resolve));
 
 const removeChildrens = bookmarkId =>
   new Promise((resolve, reject) => {
-    chrome.bookmarks.getChildren(bookmarkId, (childrens) => {
+    chrome.bookmarks.getChildren(bookmarkId, childrens => {
       if (!childrens) return Promise.resolve([]);
-      Promise.all(childrens.map(element => removeTree(element.id))).then(resolve).catch(reject);
-    })
-  })
+      Promise.all(childrens.map(element => removeTree(element.id)))
+        .then(resolve)
+        .catch(reject);
+    });
+  });
 
 const getRoot = () =>
   new Promise(resolve => {
@@ -109,9 +114,9 @@ const bookmarksCount = () =>
           let count = 0;
           if (treeNode) {
             const categories = treeNode[0].children;
-            for (let i in categories) {
+            for (const i in categories) {
               const category = categories[i];
-              for (let j in category.children) {
+              for (const j in category.children) {
                 const tagChild = category.children[j];
                 count += tagChild.children.length;
               }
@@ -122,13 +127,14 @@ const bookmarksCount = () =>
       }),
   );
 
-const loadBookmarksTreeSafe = (rootId) => new Promise((resolve) => {
-  if (!rootId) return resolve([]);
-  chrome.bookmarks.getSubTree(rootId, (results) => {
-    if (!results || results.length == 0) return resolve([]);
-    resolve(results[0].children);
+const loadBookmarksTreeSafe = rootId =>
+  new Promise(resolve => {
+    if (!rootId) return resolve([]);
+    chrome.bookmarks.getSubTree(rootId, results => {
+      if (!results || results.length == 0) return resolve([]);
+      resolve(results[0].children);
+    });
   });
-});
 
 export default {
   bookmarksCount,

@@ -1,43 +1,46 @@
-import { compareTrees } from "../../src/js/utils/graph";
 import { expect, assert } from "chai";
 
 import chrome from "sinon-chrome/extensions";
 import { match } from "sinon";
-
+import { compareTrees } from "../../src/js/utils/graph";
 
 describe("utils/graph", () => {
   describe("#compareTrees", () => {
-
     const baseTree = [
       { title: "toto", foo: "bar" },
-      { title: "tata", children: [
-        { title: "toto" },
-        { title: "toto", foo: "bar" },
-        { title: "hey", children: [
+      {
+        title: "tata",
+        children: [
+          { title: "toto" },
           { title: "toto", foo: "bar" },
-        ]},
-        { foo: "bar" },
-      ]}
+          { title: "hey", children: [{ title: "toto", foo: "bar" }] },
+          { foo: "bar" },
+        ],
+      },
     ];
     const wrongTreeMissingNode = [
       { title: "toto", foo: "bar" },
-      { title: "tata", children: [
-        { title: "toto" },
-        { title: "toto", foo: "bar" },
-        { title: "hey", children: []},
-        { foo: "bar" },
-      ]}
+      {
+        title: "tata",
+        children: [
+          { title: "toto" },
+          { title: "toto", foo: "bar" },
+          { title: "hey", children: [] },
+          { foo: "bar" },
+        ],
+      },
     ];
     const wrongTreeDifferentNode = [
       { title: "toto", foo: "bar" },
-      { title: "tata", children: [
-        { title: "TOOOOTOOOO" },
-        { title: "toto", foo: "bar" },
-        { title: "hey", children: [
+      {
+        title: "tata",
+        children: [
+          { title: "TOOOOTOOOO" },
           { title: "toto", foo: "bar" },
-        ]},
-        { foo: "bar" },
-      ]}
+          { title: "hey", children: [{ title: "toto", foo: "bar" }] },
+          { foo: "bar" },
+        ],
+      },
     ];
     const titleCompareFn = (a, b) => a.title === b.title;
 
@@ -61,5 +64,5 @@ describe("utils/graph", () => {
       const result = compareTrees(baseTree, wrongTreeDifferentNode, "children", titleCompareFn);
       expect(result).to.be.false;
     });
-  })
+  });
 });
