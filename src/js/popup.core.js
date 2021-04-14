@@ -53,11 +53,11 @@ const cleanError = () => {
 export const init = async () => {
   // Fetch data
   const config = await configUtils.load();
-  let tags = [],
-    categories = [],
-    bookmarksCount = 0,
-    tagsCategoriesCount = 0,
-    tagsCount = 0;
+  let tags = [];
+  let categories = [];
+  let bookmarksCount = 0;
+  let tagsCategoriesCount = 0;
+  let tagsCount = 0;
   showById("global-loader");
   toggleDisableById("force-sync", !config.isConfigured);
   if (config.isConfigured) {

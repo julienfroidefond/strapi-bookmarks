@@ -8,7 +8,7 @@ const createRoot = rootBookmarkName =>
       },
       rootNode => {
         console.log("root bookmark created =>", rootNode.id);
-        //register id
+        // register id
         chrome.storage.local.set({
           rootBookmarkId: rootNode.id,
         });
@@ -114,9 +114,9 @@ const bookmarksCount = () =>
           let count = 0;
           if (treeNode) {
             const categories = treeNode[0].children;
-            for (let i in categories) {
+            for (const i in categories) {
               const category = categories[i];
-              for (let j in category.children) {
+              for (const j in category.children) {
                 const tagChild = category.children[j];
                 count += tagChild.children.length;
               }

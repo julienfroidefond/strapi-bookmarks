@@ -128,9 +128,9 @@ async function runJob() {
       await configUtils.save({ rootBookmarkId });
       await bookmarkHandler.removeChildrens(rootBookmarkId);
 
-      let tagsCount = 0,
-        categoriesCount = 0,
-        bookmarksCount = 0;
+      let tagsCount = 0;
+      let categoriesCount = 0;
+      let bookmarksCount = 0;
       await browseTree(backendBookmarks, async (item, parent, parentResult) => {
         const parentDirectoryId = parent ? parentResult : rootBookmarkId;
         switch (item.type) {

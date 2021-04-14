@@ -1,8 +1,8 @@
-import { load, save, clear, defaultConfig } from "../../src/js/utils/config";
 import { expect, assert } from "chai";
 
 import chrome from "sinon-chrome/extensions";
 import { match } from "sinon";
+import { load, save, clear, defaultConfig } from "../../src/js/utils/config";
 
 describe("utils/config", () => {
   before(() => {

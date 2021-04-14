@@ -1,8 +1,8 @@
-import { compareTrees } from "../../src/js/utils/graph";
 import { expect, assert } from "chai";
 
 import chrome from "sinon-chrome/extensions";
 import { match } from "sinon";
+import { compareTrees } from "../../src/js/utils/graph";
 
 describe("utils/graph", () => {
   describe("#compareTrees", () => {

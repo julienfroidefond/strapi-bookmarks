@@ -1,24 +1,24 @@
-var webpack = require("webpack"),
-  path = require("path"),
-  fileSystem = require("fs"),
-  env = require("./utils/env"),
-  CleanWebpackPlugin = require("clean-webpack-plugin").CleanWebpackPlugin,
-  CopyWebpackPlugin = require("copy-webpack-plugin"),
-  HtmlWebpackPlugin = require("html-webpack-plugin"),
-  ZipPlugin = require("zip-webpack-plugin");
+const webpack = require("webpack");
+  const path = require("path");
+  const fileSystem = require("fs");
+  const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+  const CopyWebpackPlugin = require("copy-webpack-plugin");
+  const HtmlWebpackPlugin = require("html-webpack-plugin");
+  const ZipPlugin = require("zip-webpack-plugin");
+  const env = require("./utils/env");
 
 // load the secrets
-var alias = {};
+const alias = {};
 
-var secretsPath = path.join(__dirname, "secrets." + env.NODE_ENV + ".js");
+const secretsPath = path.join(__dirname, `secrets.${  env.NODE_ENV  }.js`);
 
-var fileExtensions = ["jpg", "jpeg", "png", "gif", "eot", "otf", "svg", "ttf", "woff", "woff2"];
+const fileExtensions = ["jpg", "jpeg", "png", "gif", "eot", "otf", "svg", "ttf", "woff", "woff2"];
 
 if (fileSystem.existsSync(secretsPath)) {
-  alias["secrets"] = secretsPath;
+  alias.secrets = secretsPath;
 }
 
-var options = {
+const options = {
   mode: process.env.NODE_ENV || "development",
   entry: {
     popup: path.join(__dirname, "src", "js", "popup.js"),
@@ -38,7 +38,7 @@ var options = {
         exclude: /node_modules/,
       },
       {
-        test: new RegExp(".(" + fileExtensions.join("|") + ")$"),
+        test: new RegExp(`.(${  fileExtensions.join("|")  })$`),
         type: "asset/inline",
         exclude: /node_modules/,
       },
@@ -50,7 +50,7 @@ var options = {
     ],
   },
   resolve: {
-    alias: alias,
+    alias,
   },
   plugins: [
     // clean the build folder
@@ -64,7 +64,7 @@ var options = {
       patterns: [
         {
           from: "src/manifest.json",
-          transform: function (content, path) {
+          transform (content, path) {
             // generates the manifest file using the package.json informations
             return Buffer.from(
               JSON.stringify({
