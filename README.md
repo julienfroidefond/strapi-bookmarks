@@ -1,10 +1,6 @@
 # Strapi bookmarks
 
-[![Publish on chrome store](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml/badge.svg)](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml)
-
-| Statements                  | Branches                | Functions                 | Lines             |
-| --------------------------- | ----------------------- | ------------------------- | ----------------- |
-| ![Statements](https://img.shields.io/badge/Coverage-17.97%25-red.svg) | ![Branches](https://img.shields.io/badge/Coverage-19.92%25-red.svg) | ![Functions](https://img.shields.io/badge/Coverage-17.19%25-red.svg) | ![Lines](https://img.shields.io/badge/Coverage-17.21%25-red.svg) |
+[![Publish on chrome store](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml/badge.svg)](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml) ![Lines](https://img.shields.io/badge/Coverage-17.21%25-red.svg)
 
 ![screenshot](./src/img/ChromeStore/Strapi-Bookmarks-Extension-DarkBlue.png)
 
