@@ -12,9 +12,9 @@ export const browseTree = (tree, fn, parent = null, parentResult = null) =>
   Promise.all(
     tree.map(async elem => {
       const result = await fn(elem, parent, parentResult);
-      if (!elem.childrens) return Promise.resolve();
+      if (!elem.children) return Promise.resolve();
 
-      return browseTree(elem.childrens, fn, elem, result);
+      return browseTree(elem.children, fn, elem, result);
     }),
   );
 
@@ -29,7 +29,6 @@ export const browseTree = (tree, fn, parent = null, parentResult = null) =>
  * @returns {boolean} Return true if trees are equal based on the given predicate
  */
 export const compareTrees = (treeA, treeB, childrenKey, compareFn) => {
-  const result = true;
   for (const i in treeA) {
     // Node = differents
     if (!treeA[i] || !treeB[i] || !compareFn(treeA[i], treeB[i])) {
@@ -46,5 +45,5 @@ export const compareTrees = (treeA, treeB, childrenKey, compareFn) => {
       if (!compareTrees(treeA[i][childrenKey], treeB[i][childrenKey], childrenKey, compareFn)) return false;
     }
   }
-  return result;
+  return true;
 };

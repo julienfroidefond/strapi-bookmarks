@@ -167,20 +167,20 @@ export const classicalFoldersExpectedResult = [
     id: 1,
     type: "directory",
     title: "A",
-    childrens: [
+    children: [
       { id: 1, title: "B1", url: "http://dzad.fr", type: "bookmark" },
       {
         id: 2,
         type: "directory",
         title: "B",
-        childrens: [
+        children: [
           { id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" },
           { id: 3, title: "B3", url: "http://dadazdaf.fre", type: "bookmark" },
           {
             id: 4,
             type: "directory",
             title: "D",
-            childrens: [{ id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" }],
+            children: [{ id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" }],
           },
         ],
       },
@@ -190,7 +190,7 @@ export const classicalFoldersExpectedResult = [
     id: 3,
     type: "directory",
     title: "C",
-    childrens: [{ id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" }],
+    children: [{ id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" }],
   },
 ];
 
