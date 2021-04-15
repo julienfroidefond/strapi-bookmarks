@@ -6,8 +6,8 @@ on:
       - "package.json"
       - "src/manifest.json"
       - "CHANGELOG.md"
-
   workflow_dispatch:
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -18,7 +18,7 @@ jobs:
         run: yarn && yarn test
 
       - name: Conventional Changelog Action
-      id: changelog
+        id: changelog
         uses: TriPSs/conventional-changelog-action@v3
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
