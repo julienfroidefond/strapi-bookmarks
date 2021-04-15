@@ -15,6 +15,7 @@
     "html-loader": "2.1.2",
     "html-webpack-plugin": "5.3.1",
     "husky": "6.0.0",
+    "istanbul-badges-readme": "^1.2.1",
     "jsdom": "16.5.3",
     "mocha": "8.3.2",
     "nyc": "15.1.0",
@@ -36,13 +37,21 @@
     "test": "nyc mocha --require utils/mocha.js --recursive -r esm",
     "test:debug": "mocha inspect --require utils/mocha.js --recursive -r esm",
     "test:watch": "mocha --watch --require utils/mocha.js --recursive -r esm",
+    "cover": "nyc report",
+    "make-badges": "istanbul-badges-readme",
     "lint": "eslint --fix ."
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged",
+      "pre-commit": "pretty-quick --staged && yarn test && yarn cover && istanbul-badges-readme && git add 'README.md'",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
+  },
+  "nyc": {
+    "reporter": [
+      "json-summary"
+    ],
+    "all": true
   },
   "dependencies": {},
   "config": {

@@ -1,6 +1,6 @@
 # Strapi bookmarks
 
-[![Publish on chrome store](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml/badge.svg)](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml)
+[![Publish on chrome store](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml/badge.svg)](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml) ![Lines](https://img.shields.io/badge/Coverage-17.21%25-red.svg)
 
 ![screenshot](./src/img/ChromeStore/Strapi-Bookmarks-Extension-DarkBlue.png)
 
