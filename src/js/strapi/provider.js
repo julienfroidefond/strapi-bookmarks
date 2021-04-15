@@ -22,7 +22,7 @@ const mapServerFolder = folder => {
     id,
     type: "directory",
     title: name,
-    childrens,
+    children: childrens,
   };
 };
 
