@@ -1,5 +1,7 @@
 # Strapi bookmarks
 
+[![Publish on chrome store](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml/badge.svg)](https://github.com/julienfroidefond/strapi-bookmarks/actions/workflows/release.yml)
+
 ![screenshot](./src/img/ChromeStore/Strapi-Bookmarks-Extension-DarkBlue.png)
 
 ## Intro
