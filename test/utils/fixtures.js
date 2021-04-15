@@ -1,0 +1,157 @@
+exports.backendBookmarks = [
+  { id: 1, type: "directory", title: "Empty folder", children: [] },
+  {
+    id: 2,
+    type: "directory",
+    title: "Search engines",
+    children: [
+      { id: 1, title: "Google", url: "https://google.com", type: "bookmark" },
+      { id: 5, title: "Qwant", url: "https://www.qwant.com/?l=fr", type: "bookmark" },
+      { id: 6, title: "Youtube", url: "https://www.youtube.com/?hl=fr&gl=FR", type: "bookmark" },
+    ],
+  },
+  {
+    id: 3,
+    type: "directory",
+    title: "Random",
+    children: [
+      {
+        id: 7,
+        title: "Julien Froidefond portfolio",
+        url: "http://www.julienfroidefond.com/",
+        type: "bookmark",
+      },
+      { id: 10, title: "Cdiscount", url: "https://www.cdiscount.com", type: "bookmark" },
+      {
+        id: 4,
+        type: "directory",
+        title: "Testing strapi bookmarks",
+        children: [
+          { id: 2, title: "Bookmark without tag", url: "https://www.cdiscount.com/", type: "bookmark" },
+          { id: 4, title: "Bookmark without category tag", url: "https://google.com/", type: "bookmark" },
+          { id: 11, title: "Expanded bookmark", url: "https://www.random.org/", type: "bookmark" },
+        ],
+      },
+    ],
+  },
+  { id: -1, type: "directory", title: "To classify", children: [] },
+];
+exports.localBookmarks = [
+  {
+    children: [],
+    dateAdded: 1618473244936,
+    dateGroupModified: 1618473244936,
+    id: "73961",
+    index: 0,
+    parentId: "73895",
+    title: "Empty folder",
+  },
+  {
+    children: [
+      {
+        dateAdded: 1618473244937,
+        id: "73965",
+        index: 0,
+        parentId: "73962",
+        title: "Google",
+        url: "https://google.com/",
+      },
+      {
+        dateAdded: 1618473244937,
+        id: "73966",
+        index: 1,
+        parentId: "73962",
+        title: "Qwant",
+        url: "https://www.qwant.com/?l=fr",
+      },
+      {
+        dateAdded: 1618473244937,
+        id: "73967",
+        index: 2,
+        parentId: "73962",
+        title: "Youtube",
+        url: "https://www.youtube.com/?hl=fr&gl=FR",
+      },
+    ],
+    dateAdded: 1618473244937,
+    dateGroupModified: 1618473244937,
+    id: "73962",
+    index: 1,
+    parentId: "73895",
+    title: "Search engines",
+  },
+  {
+    children: [
+      {
+        dateAdded: 1618473244937,
+        id: "73968",
+        index: 0,
+        parentId: "73963",
+        title: "Julien Froidefond portfolio",
+        url: "http://www.julienfroidefond.com/",
+      },
+      {
+        dateAdded: 1618473244938,
+        id: "73969",
+        index: 1,
+        parentId: "73963",
+        title: "Cdiscount",
+        url: "https://www.cdiscount.com/",
+      },
+      {
+        children: [
+          {
+            dateAdded: 1618473244938,
+            id: "73971",
+            index: 0,
+            parentId: "73970",
+            title: "Bookmark without tag",
+            url: "https://www.cdiscount.com/",
+          },
+          {
+            dateAdded: 1618473244938,
+            id: "73972",
+            index: 1,
+            parentId: "73970",
+            title: "Bookmark without category tag",
+            url: "https://google.com/",
+          },
+          {
+            dateAdded: 1618473244938,
+            id: "73973",
+            index: 2,
+            parentId: "73970",
+            title: "Expanded bookmark",
+            url: "https://www.random.org/",
+          },
+        ],
+        dateAdded: 1618473244938,
+        dateGroupModified: 1618473244938,
+        id: "73970",
+        index: 2,
+        parentId: "73963",
+        title: "Testing strapi bookmarks",
+      },
+    ],
+    dateAdded: 1618473244937,
+    dateGroupModified: 1618473244938,
+    id: "73963",
+    index: 2,
+    parentId: "73895",
+    title: "Random",
+  },
+  {
+    children: [],
+    dateAdded: 1618473244937,
+    dateGroupModified: 1618473244937,
+    id: "73964",
+    index: 3,
+    parentId: "73895",
+    title: "To classify",
+  },
+];
+
+exports.singletonBookmark = {
+  title: "Google",
+  url: "https://google.com",
+};

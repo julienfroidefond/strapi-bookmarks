@@ -8,7 +8,7 @@ import { waitPromise } from "./utils/time";
 import bookmarkHandler from "./bookmarkHandler";
 import * as configUtils from "./utils/config";
 import * as strapiProvider from "./strapi/provider";
-import { compareTrees, browseTree } from "./utils/graph";
+import { compareTrees, browseTree, compareBookmarkTress } from "./utils/graph";
 
 const ONE_HOUR = 3600000;
 
@@ -107,15 +107,8 @@ async function runJob() {
     // Fetch bookmarks
     const backendBookmarks = await strapiProvider.loadBookmarksTree(config);
     const localBookmarks = await bookmarkHandler.loadBookmarksTreeSafe(config.rootBookmarkId);
-    const hasDifferences = !compareTrees(backendBookmarks, localBookmarks, "children", (a, b) => {
-      const isAFolder = a.url === undefined;
-      const isBFolder = b.url === undefined;
-      if (isAFolder !== isBFolder) return false;
-      if ((a.title || "") !== (b.title || "")) return false;
-      if (a.url !== b.url) return false;
 
-      return true;
-    });
+    const hasDifferences = !compareBookmarkTress(backendBookmarks, localBookmarks);
     setState({ bookmarks: backendBookmarks });
 
     if (hasDifferences) {

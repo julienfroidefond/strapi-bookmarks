@@ -1,8 +1,6 @@
-import { expect, assert } from "chai";
-
-import chrome from "sinon-chrome/extensions";
-import { match } from "sinon";
-import { compareTrees } from "../../src/js/utils/graph";
+import { expect } from "chai";
+import { compareTrees, compareBookmarkTress } from "../../src/js/utils/graph";
+import { backendBookmarks, localBookmarks, singletonBookmark } from "./fixtures";
 
 describe("utils/graph", () => {
   describe("#compareTrees", () => {
@@ -62,6 +60,59 @@ describe("utils/graph", () => {
 
     it("should returns false when a node is different", () => {
       const result = compareTrees(baseTree, wrongTreeDifferentNode, "children", titleCompareFn);
+      expect(result).to.be.false;
+    });
+
+    it("should returns false when root item count are different", () => {
+      const result = compareTrees(baseTree, [...baseTree, ...baseTree], "children", titleCompareFn);
+      expect(result).to.be.false;
+    });
+  });
+
+  describe("#compareBookmarkTrees", () => {
+    it("should returns true when comparing 2 same tree (real dataset)", () => {
+      const result = compareBookmarkTress(backendBookmarks, localBookmarks);
+      expect(result).to.be.true;
+    });
+
+    it("should returns true if urls only differ on last '/'", () => {
+      const treeA = singletonBookmark;
+      const treeB = { ...treeA, url: treeA.url + '/' }
+      const result = compareBookmarkTress([treeA], [treeB]);
+      expect(result).to.be.true;
+    });
+
+    it("should returns false when title are different", () => {
+      const treeA = singletonBookmark;
+      const treeB = { ...treeA, title: 'Toto' }
+      const result = compareBookmarkTress([treeA], [treeB]);
+      expect(result).to.be.false;
+    });
+
+    it("should returns false when url are different", () => {
+      const treeA = singletonBookmark;
+      const treeB = { ...treeA, url: 'https://www.example.com' }
+      const result = compareBookmarkTress([treeA], [treeB]);
+      expect(result).to.be.false;
+    });
+
+    it("should returns false when root item count are different", () => {
+      const treeA = singletonBookmark;
+      const result = compareBookmarkTress([treeA], [treeA, treeA]);
+      expect(result).to.be.false;
+    });
+
+    it("should returns false when children are different", () => {
+      const treeA = { title: 'Folder A', children: [singletonBookmark] }
+      const treeB = { title: 'Folder A', children: [singletonBookmark, singletonBookmark] }
+      const result = compareBookmarkTress([treeA], [treeB]);
+      expect(result).to.be.false;
+    });
+
+    it("should returns false when node type are different (bookmark vs folder)", () => {
+      const treeA = singletonBookmark;
+      const treeB = { ...treeA, url: undefined, children: [treeA] }
+      const result = compareBookmarkTress([treeA], [treeB]);
       expect(result).to.be.false;
     });
   });

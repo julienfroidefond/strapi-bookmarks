@@ -29,6 +29,8 @@ export const browseTree = (tree, fn, parent = null, parentResult = null) =>
  * @returns {boolean} Return true if trees are equal based on the given predicate
  */
 export const compareTrees = (treeA, treeB, childrenKey, compareFn) => {
+  if (!Array.isArray(treeA) || !Array.isArray(treeB)) return false;
+  if (treeA.length != treeB.length) return false;
   for (const i in treeA) {
     // Node = differents
     if (!treeA[i] || !treeB[i] || !compareFn(treeA[i], treeB[i])) {
@@ -47,3 +49,19 @@ export const compareTrees = (treeA, treeB, childrenKey, compareFn) => {
   }
   return true;
 };
+
+/**
+ * Compare bookmark trees
+ *
+ * @param {object} treeA A bookmark tree
+ * @param {object} treeB Another bookmark tree
+ * @returns {boolean} Return true if trees are equal
+ */
+export const compareBookmarkTress = (treeA, treeB) => compareTrees(treeA, treeB, "children", (a, b) => {
+  const isAFolder = a.url === undefined;
+  const isBFolder = b.url === undefined;
+  if (isAFolder !== isBFolder) return false;
+  if ((a.title || "") !== (b.title || "")) return false;
+  if (a.url !== b.url && `${a.url}/` !== b.url && a.url !== `${b.url}/`) return false;
+  return true;
+})
