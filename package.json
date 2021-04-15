@@ -43,7 +43,7 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged",
+      "pre-commit": "pretty-quick --staged && yarn test && yarn cover && istanbul-badges-readme && git add 'README.md'",
       "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
     }
   },

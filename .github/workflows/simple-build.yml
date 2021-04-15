@@ -18,6 +18,3 @@ jobs:
 
       - name: Testing
         run: yarn test
-
-      - name: make badge
-        run: yarn cover && yarn make-badges
