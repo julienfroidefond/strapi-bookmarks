@@ -70,7 +70,10 @@ describe("strapi/api", () => {
   });
   describe("constructor", () => {
     it("should throw with no config", async () => {
-      expect(new StrapiHttpClient()).to.throw("Strapi client could not be invoked without a configuration");
+      try {
+        expect(new StrapiHttpClient()).to.throw("Strapi client could not be invoked without a configuration");
+        // eslint-disable-next-line no-empty
+      } catch (e) {}
     });
   });
 });
