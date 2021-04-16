@@ -1,4 +1,4 @@
-import { assert } from "chai";
+// import { assert } from "chai";
 
 import chrome from "sinon-chrome/extensions";
 import { waitPromise } from "../src/js/utils/time";

@@ -70,9 +70,7 @@ describe("strapi/api", () => {
   });
   describe("constructor", () => {
     it("should throw with no config", async () => {
-      try {
-        expect(new StrapiHttpClient()).to.throw("Strapi client could not be invoked without a configuration");
-      } catch (e) {}
+      expect(new StrapiHttpClient()).to.throw("Strapi client could not be invoked without a configuration");
     });
   });
 });

@@ -1,7 +1,9 @@
 module.exports = {
   env: {
+    webextensions: true,
     browser: true,
     es2021: true,
+    mocha: true,
   },
   extends: ["airbnb-base", "prettier"],
   parserOptions: {
@@ -9,4 +11,5 @@ module.exports = {
     sourceType: "module",
   },
   rules: {},
+  ignorePatterns: ["utils/", "webpack.config.js", "build/"],
 };

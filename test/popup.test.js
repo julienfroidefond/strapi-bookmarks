@@ -34,6 +34,7 @@ describe("popup.js", () => {
 
   describe("init()", () => {
     it("should be in error", async () => {
+      // eslint-disable-next-line global-require
       const { init } = require("../src/js/popup.core");
 
       await init();

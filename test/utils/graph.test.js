@@ -77,7 +77,7 @@ describe("utils/graph", () => {
 
     it("should returns true if urls only differ on last '/'", () => {
       const treeA = singletonBookmark;
-      const treeB = { ...treeA, url: treeA.url + '/' }
+      const treeB = { ...treeA, url: `${treeA.url  }/` }
       const result = compareBookmarkTress([treeA], [treeB]);
       expect(result).to.be.true;
     });

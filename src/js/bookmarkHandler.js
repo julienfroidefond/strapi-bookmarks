@@ -1,3 +1,5 @@
+const { log } = console;
+
 const createRoot = rootBookmarkName =>
   new Promise(resolve => {
     chrome.bookmarks.create(
@@ -7,7 +9,7 @@ const createRoot = rootBookmarkName =>
         index: 0,
       },
       rootNode => {
-        console.log("root bookmark created =>", rootNode.id);
+        log("root bookmark created =>", rootNode.id);
         // register id
         chrome.storage.local.set({
           rootBookmarkId: rootNode.id,
@@ -23,17 +25,17 @@ const getById = bookmarkId =>
       if (!bookmarks || bookmarks.length === 0) {
         return resolve(null);
       }
-      resolve(bookmarks[0].id);
+      return resolve(bookmarks[0].id);
     }),
   );
 
 const getOrCreateRoot = (rootBookmarkId, rootBookmarkName) =>
   new Promise(async resolve => {
     if (!rootBookmarkId) {
-      return resolve(await createRoot(rootBookmarkName));
+      resolve(await createRoot(rootBookmarkName));
     }
     const rootId = await getById(rootBookmarkId);
-    if (rootId) return resolve(rootId);
+    if (rootId) resolve(rootId);
     resolve(await createRoot(rootBookmarkName));
   });
 
@@ -81,7 +83,7 @@ const removeChildrens = bookmarkId =>
   new Promise((resolve, reject) => {
     chrome.bookmarks.getChildren(bookmarkId, childrens => {
       if (!childrens) return Promise.resolve([]);
-      Promise.all(childrens.map(element => removeTree(element.id)))
+      return Promise.all(childrens.map(element => removeTree(element.id)))
         .then(resolve)
         .catch(reject);
     });
@@ -89,6 +91,7 @@ const removeChildrens = bookmarkId =>
 
 const getRoot = () =>
   new Promise(resolve => {
+    // config ?? @dalexanco
     chrome.bookmarks.search({ title: config.rootBookmarkName }, rootNodes => {
       const rootNode = rootNodes[0];
       resolve(rootNode);
@@ -99,8 +102,8 @@ const categoriesCount = () =>
   getRoot().then(
     rootNode =>
       new Promise((resolve, reject) => {
-        if (!rootNode) return reject("Cannot found root directory");
-        chrome.bookmarks.getChildren(rootNode.id, treeNode => {
+        if (!rootNode) return reject(new Error("Cannot found root directory"));
+        return chrome.bookmarks.getChildren(rootNode.id, treeNode => {
           resolve(treeNode ? treeNode.length : 0);
         });
       }),
@@ -114,13 +117,11 @@ const bookmarksCount = () =>
           let count = 0;
           if (treeNode) {
             const categories = treeNode[0].children;
-            for (const i in categories) {
-              const category = categories[i];
-              for (const j in category.children) {
-                const tagChild = category.children[j];
+            categories.forEach(category => {
+              category.children.forEach(tagChild => {
                 count += tagChild.children.length;
-              }
-            }
+              });
+            });
           }
           resolve(count);
         });
@@ -130,9 +131,9 @@ const bookmarksCount = () =>
 const loadBookmarksTreeSafe = rootId =>
   new Promise(resolve => {
     if (!rootId) return resolve([]);
-    chrome.bookmarks.getSubTree(rootId, results => {
-      if (!results || results.length == 0) return resolve([]);
-      resolve(results[0].children);
+    return chrome.bookmarks.getSubTree(rootId, results => {
+      if (!results || results.length === 0) return resolve([]);
+      return resolve(results[0].children);
     });
   });
 

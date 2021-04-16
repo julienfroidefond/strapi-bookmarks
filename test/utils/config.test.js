@@ -1,4 +1,4 @@
-import { expect, assert } from "chai";
+import { expect } from "chai";
 
 import chrome from "sinon-chrome/extensions";
 import { match } from "sinon";

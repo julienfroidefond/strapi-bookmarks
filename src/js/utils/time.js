@@ -6,3 +6,5 @@ export const waitPromise = (duration, cb) =>
     }, duration);
     if (cb) cb(timeoutRef);
   });
+
+export default {};
