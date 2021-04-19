@@ -1,7 +1,4 @@
-import * as configUtils from "./utils/config";
-
 const { log } = console;
-let config = {};
 
 const createRoot = rootBookmarkName =>
   new Promise(resolve => {
@@ -22,25 +19,38 @@ const createRoot = rootBookmarkName =>
     );
   });
 
+/**
+ * Return the bookmark/folder from its id
+ *
+ * @param {string} bookmarkId The folder or bookmark id to retreive
+ * @returns {Promise} The resolved bookmark node
+ */
 const getById = bookmarkId =>
-  new Promise(resolve =>
+  new Promise(resolve => {
     chrome.bookmarks.get(bookmarkId, bookmarks => {
       if (!bookmarks || bookmarks.length === 0) {
         return resolve(null);
       }
       return resolve(bookmarks[0].id);
-    }),
-  );
-
-const getOrCreateRoot = (rootBookmarkId, rootBookmarkName) =>
-  new Promise(async resolve => {
-    if (!rootBookmarkId) {
-      resolve(await createRoot(rootBookmarkName));
-    }
-    const rootId = await getById(rootBookmarkId);
-    if (rootId) resolve(rootId);
-    resolve(await createRoot(rootBookmarkName));
+    });
   });
+
+/**
+ * Get or create a root folder from its id
+ *
+ * @param {string} rootBookmarkId The folder id to retreive
+ * @param {string} rootBookmarkName The folder name to use if creation needed
+ *
+ * @returns {Promise} The resolved bookmark folder (found or created)
+ */
+const getOrCreateRoot = async (rootBookmarkId, rootBookmarkName) => {
+  if (!rootBookmarkId) {
+    return createRoot(rootBookmarkName);
+  }
+  const rootId = await getById(rootBookmarkId);
+  if (rootId) return rootId;
+  return createRoot(rootBookmarkName);
+};
 
 const createDirectory = (parentNodeId, title) =>
   new Promise(resolve => {
@@ -92,45 +102,6 @@ const removeChildrens = bookmarkId =>
     });
   });
 
-const getRoot = () =>
-  new Promise(async resolve => {
-    config = await configUtils.load();
-    chrome.bookmarks.search({ title: config.rootBookmarkName }, rootNodes => {
-      const rootNode = rootNodes[0];
-      resolve(rootNode);
-    });
-  });
-
-const categoriesCount = () =>
-  getRoot().then(
-    rootNode =>
-      new Promise((resolve, reject) => {
-        if (!rootNode) return reject(new Error("Cannot found root directory"));
-        return chrome.bookmarks.getChildren(rootNode.id, treeNode => {
-          resolve(treeNode ? treeNode.length : 0);
-        });
-      }),
-  );
-
-const bookmarksCount = () =>
-  getRoot().then(
-    rootNode =>
-      new Promise(resolve => {
-        chrome.bookmarks.getSubTree(rootNode.id, treeNode => {
-          let count = 0;
-          if (treeNode) {
-            const categories = treeNode[0].children;
-            categories.forEach(category => {
-              category.children.forEach(tagChild => {
-                count += tagChild.children.length;
-              });
-            });
-          }
-          resolve(count);
-        });
-      }),
-  );
-
 const loadBookmarksTreeSafe = rootId =>
   new Promise(resolve => {
     if (!rootId) return resolve([]);
@@ -141,8 +112,6 @@ const loadBookmarksTreeSafe = rootId =>
   });
 
 export default {
-  bookmarksCount,
-  categoriesCount,
   createBMark,
   createDirectory,
   createRoot,
