@@ -1,7 +1,5 @@
 import StrapiHttpClient from "./api";
 
-const UNDEFINED_CATEGORY_LABEL = "Undefined category";
-
 /**
  * Mapping a folder to a chrome directory with bookmarks
  * @param {Object} folder folder from the server
@@ -39,3 +37,5 @@ export async function loadBookmarksTree(config) {
 
   return foldersTree.map(mapServerFolder);
 }
+
+export default {};

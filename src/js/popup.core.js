@@ -79,16 +79,15 @@ export const init = async () => {
 
   // Render "Datas"
   const tagsMenu = document.getElementById("menu-tags-strapi");
-  for (var i in tags) {
-    const item = tags[i];
+  tags.forEach(item => {
     if (item.bookmarks.length > 0)
       tagsMenu.innerHTML += `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.bookmarks.length})</span>`;
-  }
+  });
+
   const categoriesMenu = document.getElementById("menu-tags-categories-strapi");
-  for (var i in categories) {
-    const item = categories[i];
+  categories.forEach(item => {
     categoriesMenu.innerHTML += `<span class="badge tag" data-st-id="${item.id}">${item.name} (${item.tags.length})</span>`;
-  }
+  });
 
   // Render "Server infos"
   setHtmlById("bookmarks-count", bookmarksCount);
@@ -117,6 +116,6 @@ export const forceSyncClick = async e => {
   e.target.innerText = "Synchronize now";
 };
 
-export const openOptionTab = e => {
+export const openOptionTab = () => {
   chrome.tabs.create({ url: `chrome://extensions/?options=${chrome.runtime.id}` });
 };

@@ -24,8 +24,9 @@ export const load = (defaultValues = defaultConfig) =>
   new Promise(resolve => {
     chrome.storage.sync.get(defaultValues, result => {
       const filledWithDefaultValues = Object.keys(result).reduce((agg, curr) => {
-        agg[curr] = result[curr] || defaultConfig[curr];
-        return agg;
+        const aggregat = agg;
+        aggregat[curr] = result[curr] || defaultConfig[curr];
+        return aggregat;
       }, {});
       resolve(filledWithDefaultValues);
     });

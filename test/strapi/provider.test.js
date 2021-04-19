@@ -12,7 +12,6 @@ describe("strapi/provider", () => {
 
     it("should loadBookmarksTree without error", async () => {
       const bookmarks = await loadBookmarksTree(strapiConfig);
-      // console.log(JSON.stringify(bookmarks));
       assert.deepEqual(bookmarks, classicalFoldersExpectedResult);
     });
   });

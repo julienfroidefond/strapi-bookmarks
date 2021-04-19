@@ -1,5 +1,3 @@
-import { waitPromise } from "./time";
-
 export const ACTION_FORCE_SYNC = "force-sync";
 export const ACTION_REQUEST_STATE = "req-state";
 export const ACTION_RESPONSE_STATE = "res-state";
@@ -23,14 +21,12 @@ export const postMessageAck = (port, action) => port.postMessage({ type: `ack-${
  * @param {number} options.timeout - max duration to wait
  * @returns {Promise}
  */
-export const postMessageAndWaitFor = (port, action, { actionType, selector, timeout = 10000 }) =>
+export const postMessageAndWaitFor = (port, action, { actionType, selector }) =>
   Promise.race([
     // waitPromise(timeout),
     new Promise(resolve => {
       const messageFilter = actionType ? message => message.type === actionType : selector;
-      port.onMessage.addListener(message => {
-        messageFilter(message) && resolve(message);
-      });
+      port.onMessage.addListener(message => messageFilter(message) && resolve(message));
       port.postMessage(action);
     }),
   ]);
