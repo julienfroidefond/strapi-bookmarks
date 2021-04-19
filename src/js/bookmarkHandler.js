@@ -1,4 +1,7 @@
+import * as configUtils from "./utils/config";
+
 const { log } = console;
+let config = {};
 
 const createRoot = rootBookmarkName =>
   new Promise(resolve => {
@@ -90,8 +93,8 @@ const removeChildrens = bookmarkId =>
   });
 
 const getRoot = () =>
-  new Promise(resolve => {
-    // config ?? @dalexanco
+  new Promise(async resolve => {
+    config = await configUtils.load();
     chrome.bookmarks.search({ title: config.rootBookmarkName }, rootNodes => {
       const rootNode = rootNodes[0];
       resolve(rootNode);
