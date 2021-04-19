@@ -1,7 +1,7 @@
 const DEFAULT_ROOT_BOOKMARK_NAME = "Strapi bookmarks";
 const DEFAULT_STRAPI_URL = "https://bookmarks-cms.herokuapp.com/"; // TODO : fix defaults
 const DEFAULT_STRAPI_JWT =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE1OTgxODU5LCJleHAiOjE2MTg1NzM4NTl9.06YN9zo3e5sg9zmuuRj-UvmoabMHLClcK1jpb6iKlH4";
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE4ODQwNTUyLCJleHAiOjE2MjE0MzI1NTJ9.ejgA8h1214pBCdUlz3GPW0Mw3uIZNa1qnoqhFLIU0wQ";
 const DEFAULT_AUTO_SYNC_DELAY = 1;
 
 export const defaultConfig = {
