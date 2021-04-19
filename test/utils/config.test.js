@@ -4,9 +4,16 @@ import chrome from "sinon-chrome/extensions";
 import { match } from "sinon";
 import { load, save, clear, defaultConfig } from "../../src/js/utils/config";
 
+let backupChrome
 describe("utils/config", () => {
   before(() => {
+    backupChrome = global.chrome
     global.chrome = chrome;
+  });
+
+  after(() => {
+    chrome.flush();
+    global.chrome = backupChrome
   });
 
   describe("#load", () => {
