@@ -7,20 +7,24 @@ import StrapiHttpClient from "./api";
  */
 const mapServerFolder = folder => {
   const { id, name, bookmarks, children } = folder;
-  let childrens = [];
-  childrens = bookmarks.map(bookmark => ({
+  let childrensBookmarks = [];
+  const childrensFolders = [];
+
+  const childrenMapped = children ? children.map(mapServerFolder) : [];
+  childrensFolders.push(...childrenMapped);
+
+  childrensBookmarks = bookmarks.map(bookmark => ({
     id: bookmark.id,
     title: bookmark.title,
     url: bookmark.url,
     type: "bookmark",
   }));
-  const childrenMapped = children ? children.map(mapServerFolder) : [];
-  childrens.push(...childrenMapped);
+
   return {
     id,
     type: "directory",
     title: name,
-    children: childrens,
+    children: [...childrensFolders, ...childrensBookmarks],
   };
 };
 
