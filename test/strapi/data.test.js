@@ -168,22 +168,22 @@ export const classicalFoldersExpectedResult = [
     type: "directory",
     title: "A",
     children: [
-      { id: 1, title: "B1", url: "http://dzad.fr", type: "bookmark" },
       {
         id: 2,
         type: "directory",
         title: "B",
         children: [
-          { id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" },
-          { id: 3, title: "B3", url: "http://dadazdaf.fre", type: "bookmark" },
           {
             id: 4,
             type: "directory",
             title: "D",
             children: [{ id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" }],
           },
+          { id: 2, title: "B2", url: "http://fezfzefz.fez", type: "bookmark" },
+          { id: 3, title: "B3", url: "http://dadazdaf.fre", type: "bookmark" },
         ],
       },
+      { id: 1, title: "B1", url: "http://dzad.fr", type: "bookmark" },
     ],
   },
   {
