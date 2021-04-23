@@ -3,6 +3,7 @@
   <head>
     <title>My Test Extension Options</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="./css/options.css" />
   </head>
   <body>
     <p>Timing between auto synchronisation (0 = none) in hours</p>
@@ -27,13 +28,12 @@
     />
     <br />
 
-    <p>Here set the strapi token :</p>
-    <input
-      type="text"
-      class="form-control"
-      id="strapi-jwt"
-      placeholder="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwiaWF0IjoxNjE1OTgxODU5LCJleHAiOjE2MTg1NzM4NTl9.06YN9zo3e5sg9zmuuRj-UvmoabMHLClcK1jpb6iKlH4"
-    />
+    <p>Here set the login access account :</p>
+    <input type="email" class="form-control" id="login" placeholder="strapi.bookmarks@gmail.com" />
+    <br />
+
+    <p>Here set the password access account :</p>
+    <input type="password" class="form-control" id="password" placeholder="" />
     <br />
 
     <br />

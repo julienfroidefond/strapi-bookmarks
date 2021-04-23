@@ -11,6 +11,8 @@ export const defaultConfig = {
   autoSyncDelay: DEFAULT_AUTO_SYNC_DELAY,
   isConfigured: false,
   rootBookmarkId: null,
+  login: "",
+  password: "",
 };
 
 /**
@@ -48,7 +50,7 @@ export const load = (defaultValues = defaultConfig) =>
  */
 export const save = config =>
   new Promise(resolve => {
-    const { autoSyncDelay, customRootName, rootBookmarkId, strapiJwt, strapiUrl } = config;
+    const { autoSyncDelay, customRootName, rootBookmarkId, strapiJwt, strapiUrl, login, password } = config;
     chrome.storage.sync.set(
       {
         autoSyncDelay,
@@ -57,6 +59,8 @@ export const save = config =>
         rootBookmarkId,
         strapiJwt,
         strapiUrl,
+        login,
+        password,
       },
       resolve,
     );
