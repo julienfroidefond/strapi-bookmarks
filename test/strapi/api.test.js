@@ -80,7 +80,7 @@ describe("strapi/api", () => {
       mockForm.set("identity", login);
       mockForm.set("password", pwd);
 
-      expect(httpClient.auth(login, pwd)).to.throw();
+      expect(() => httpClient.auth(login, pwd)).to.throw();
     });
   });
   describe("#getFoldersTree()", () => {
@@ -100,7 +100,7 @@ describe("strapi/api", () => {
   });
   describe("constructor", () => {
     it("should throw with no config", async () => {
-      expect(new StrapiHttpClient()).to.throw();
+      expect(() => new StrapiHttpClient()).to.throw();
     });
   });
 });
