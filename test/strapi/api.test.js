@@ -21,6 +21,11 @@ describe("strapi/api", () => {
         resolve({ ok: true, json: () => mockReturnRequestObject });
       });
     };
+    global.FormData = class FormData {
+      set(key, val) {
+        this[key] = val;
+      }
+    };
   });
   describe("#fetchStrapi()", () => {
     it("should fetchStrapi without error", async () => {
@@ -53,6 +58,31 @@ describe("strapi/api", () => {
       await standardMockAndTest("getTagsCategoriesCount", "tags-categories/count");
     });
   });
+  describe("#auth()", () => {
+    it("should auth without error", async () => {
+      const httpClient = new StrapiHttpClient(strapiConfig);
+      const login = "jfroidefond";
+      const pwd = "123456789";
+      const mockForm = new FormData();
+      mockForm.set("identity", login);
+      mockForm.set("password", pwd);
+
+      await httpClient.auth(login, pwd);
+      assert.deepEqual(spy.url, "http://mock.test/auth/local");
+      assert.deepEqual(spy.config, { method: "POST", body: { identifier: login, password: pwd } });
+    });
+
+    it("should fail without login or empty", async () => {
+      const httpClient = new StrapiHttpClient(strapiConfig);
+      const login = "";
+      const pwd = "123456789";
+      const mockForm = new FormData();
+      mockForm.set("identity", login);
+      mockForm.set("password", pwd);
+
+      expect(httpClient.auth(login, pwd)).to.throw();
+    });
+  });
   describe("#getFoldersTree()", () => {
     it("should getFoldersTree no tags filter without error", async () => {
       await standardMockAndTest("getFoldersTree", "folders/tree?no_empty_folders=true");
@@ -70,10 +100,7 @@ describe("strapi/api", () => {
   });
   describe("constructor", () => {
     it("should throw with no config", async () => {
-      try {
-        expect(new StrapiHttpClient()).to.throw("Strapi client could not be invoked without a configuration");
-        // eslint-disable-next-line no-empty
-      } catch (e) {}
+      expect(new StrapiHttpClient()).to.throw();
     });
   });
 });
