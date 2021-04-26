@@ -50,4 +50,20 @@ export default class StrapiHttpClient {
   getTagsCategoriesCount() {
     return this.fetchStrapi("tags-categories/count");
   }
+
+  auth(login, password) {
+    if (!login || !password)
+      throw new Error("Trying to authenticate without login or password. This is not possible.");
+    const authForm = new FormData();
+    authForm.set("identifier", login);
+    authForm.set("password", password);
+
+    return fetch(`${this.routeBase}auth/local`, {
+      method: "POST",
+      body: authForm,
+    }).then(response => {
+      if (!response.ok) throw new Error("Fail to fetch Strapi server");
+      return response.json();
+    });
+  }
 }

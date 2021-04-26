@@ -61,3 +61,7 @@
   background-color: #e6e6e6;
   border-color: #adadad;
 }
+#status {
+  line-break: anywhere;
+  margin: 10px;
+}
