@@ -33,15 +33,15 @@ describe("popup.js", () => {
   });
 
   describe("init()", () => {
-    it("should be in error", async () => {
+    it("should route on signin", async () => {
       // eslint-disable-next-line global-require
       const { init } = require("../src/js/popup.core");
 
       await init();
 
-      const forceSyncDomDisabledAttr = global.document.getElementById("force-sync").getAttribute("disabled");
+      const bodyClasses = global.document.getElementById("root").classList.value;
 
-      assert(forceSyncDomDisabledAttr === "disabled", "Force sync should be disabled");
+      assert(bodyClasses === "route-signin", "first route should be sign in");
     });
   });
 });
