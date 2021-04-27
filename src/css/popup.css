@@ -12,6 +12,7 @@ body {
   flex-direction: column;
   font-family: "Montserrat", sans-serif;
   margin: 0;
+  transition: all 0.5s;
 }
 
 h1 {
@@ -69,7 +70,7 @@ button.ghost {
   border-color: #ffffff;
 }
 
-form {
+#sign-in-form {
   background-color: #ffffff;
   display: flex;
   align-items: center;
@@ -94,7 +95,7 @@ input {
   box-shadow: 0 14px 28px rgb(0 0 0 / 25%), 0 10px 10px rgb(0 0 0 / 22%);
   position: relative;
   overflow: hidden;
-  width: 400px;
+  width: 100%;
   max-width: 89%;
   min-height: 470px;
   margin: 20px 0px;
@@ -115,7 +116,7 @@ input {
 }
 
 #main-container {
-  width: 400px;
+  width: 100%;
   height: 100vh;
   font-weight: 500;
   font-family: "Roboto", sans-serif;
@@ -125,6 +126,12 @@ input {
   min-height: 470px;
   display: none;
   background-color: white;
+}
+.route-signin {
+  width: 420px;
+}
+.route-main {
+  width: 340px;
 }
 
 #main {
@@ -224,7 +231,7 @@ label {
   top: 0;
   left: 0;
   padding-top: 188px;
-  margin-top: 60px;
+  z-index: 2000;
 }
 
 .lds-ellipsis {

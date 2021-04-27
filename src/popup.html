@@ -3,7 +3,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="./css/popup.css" />
 </head>
-<body>
+<body id="root">
   <div id="global-loader" class="loader">
     <div class="lds-ellipsis">
       <div></div>
@@ -14,16 +14,16 @@
   </div>
   <div id="sign-in-container">
     <div id="sign-in" class="form-container">
-      <form action="#">
+      <div id="sign-in-form">
         <h1>Sign in</h1>
         <br />
         <input id="strapi-url" type="string" placeholder="Url server" />
         <input id="login" type="string" placeholder="Login" />
         <input id="password" type="password" placeholder="Password" />
         <a id="show-demo" href="#">Start a demo</a>
-        <button id="sign-in-button" type="submit">Sign In</button>
+        <button id="sign-in-button">Sign In</button>
         <p id="signin-status"></p>
-      </form>
+      </div>
     </div>
   </div>
   <div id="main-container">
