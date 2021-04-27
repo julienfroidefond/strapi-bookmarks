@@ -116,14 +116,13 @@ input {
 
 #main-container {
   width: 400px;
-  /* font-family: Helvetica, Ubuntu, Arial, sans-serif; */
   height: 100vh;
   font-weight: 500;
   font-family: "Roboto", sans-serif;
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   overflow: scroll;
-
+  min-height: 470px;
   display: none;
   background-color: white;
 }
