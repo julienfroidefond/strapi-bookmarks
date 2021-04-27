@@ -136,9 +136,6 @@ export const openOptionTab = () => {
 };
 
 export const showDemo = () => {
-  // TODO : Auto connect
-  // hideById("sign-in-container");
-  // showById("main-container");
   document.getElementById("strapi-url").value = "https://bookmarks-cms.herokuapp.com/";
   document.getElementById("login").value = "strapi.bookmarks";
   document.getElementById("password").value = "strapi.bookmarks";
