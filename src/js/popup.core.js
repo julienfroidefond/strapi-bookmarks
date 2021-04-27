@@ -10,6 +10,8 @@ import { waitPromise } from "./utils/time";
 import StrapiHttpClient from "./strapi/api";
 import { hideById, showById, setHtmlById, toggleDisableById } from "./utils/dom";
 
+const { log } = console;
+
 const channelDaemonPort = chrome.extension.connect({ name: "channel-sync-daemon" });
 const getState = async () => {
   const actionReqState = { type: ACTION_REQUEST_STATE };
@@ -51,14 +53,27 @@ const cleanError = () => {
 };
 
 export const init = async () => {
-  // Fetch data
+  showById("global-loader");
+
   const config = await configUtils.load();
   let tags = [];
   let categories = [];
   let bookmarksCount = 0;
   let tagsCategoriesCount = 0;
   let tagsCount = 0;
-  showById("global-loader");
+
+  document.getElementById("strapi-url").value = config.strapiUrl;
+  document.getElementById("login").value = config.login;
+  document.getElementById("password").value = config.password;
+
+  if (config.strapiJwt) {
+    hideById("sign-in-container");
+    showById("main-container");
+  } else {
+    showById("sign-in-container");
+    hideById("main-container");
+  }
+
   toggleDisableById("force-sync", !config.isConfigured);
   if (config.isConfigured) {
     const httpClient = new StrapiHttpClient(config);
@@ -118,4 +133,65 @@ export const forceSyncClick = async e => {
 
 export const openOptionTab = () => {
   chrome.tabs.create({ url: `chrome://extensions/?options=${chrome.runtime.id}` });
+};
+
+export const showDemo = () => {
+  // TODO : Auto connect
+  // hideById("sign-in-container");
+  // showById("main-container");
+  document.getElementById("strapi-url").value = "https://bookmarks-cms.herokuapp.com/";
+  document.getElementById("login").value = "strapi.bookmarks";
+  document.getElementById("password").value = "strapi.bookmarks";
+};
+
+export const signin = async () => {
+  showById("global-loader");
+  const strapiUrl = document.getElementById("strapi-url").value;
+  const login = document.getElementById("login").value;
+  const password = document.getElementById("password").value;
+  const httpClient = new StrapiHttpClient({
+    strapiUrl,
+  });
+
+  const config = await configUtils.load({ strapiJwt: null });
+
+  let { strapiJwt } = config;
+  let status = "";
+  if (password && password !== "" && login && login !== "") {
+    try {
+      const auth = await httpClient.auth(login, password);
+      if (auth.jwt && auth.jwt !== "") {
+        strapiJwt = auth.jwt;
+        log(`Setting up new token : ${strapiJwt}`);
+      }
+    } catch (e) {
+      strapiJwt = null;
+      status = e;
+    }
+  }
+
+  const newConfig = {
+    strapiUrl,
+    strapiJwt,
+    login,
+    password,
+  };
+
+  await configUtils.save(newConfig);
+
+  hideById("global-loader");
+
+  if (strapiJwt && strapiJwt !== "") {
+    hideById("sign-in-container");
+    showById("main-container");
+    init();
+  } else {
+    document.getElementById("signin-status").innerHTML = status;
+  }
+};
+
+export const signout = async () => {
+  await configUtils.save({ strapiJwt: null });
+  showById("sign-in-container");
+  hideById("main-container");
 };
