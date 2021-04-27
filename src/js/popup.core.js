@@ -131,10 +131,6 @@ export const forceSyncClick = async e => {
   e.target.innerText = "Synchronize now";
 };
 
-export const openOptionTab = () => {
-  chrome.tabs.create({ url: `chrome://extensions/?options=${chrome.runtime.id}` });
-};
-
 export const showDemo = () => {
   document.getElementById("strapi-url").value = "https://bookmarks-cms.herokuapp.com/";
   document.getElementById("login").value = "strapi.bookmarks";
