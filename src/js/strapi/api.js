@@ -1,3 +1,21 @@
+const handleResponse = response =>
+  response.json().then(json => {
+    if (!response.ok) {
+      let status;
+      if (Array.isArray(json.message)) {
+        json.message.forEach(mes => {
+          mes.messages.forEach(text => {
+            status = `${status}${text.id} : ${text.message}<br />`;
+          });
+        });
+      } else {
+        status = json;
+      }
+      return Promise.reject(status);
+    }
+    return json;
+  });
+
 export default class StrapiHttpClient {
   constructor(config) {
     if (!config) throw new Error("Strapi client could not be invoked without a configuration");
@@ -10,10 +28,7 @@ export default class StrapiHttpClient {
     return fetch(this.routeBase + path, {
       method: "GET",
       headers: { Authorization: `Bearer ${this.jwt}` },
-    }).then(response => {
-      if (!response.ok) throw new Error("Fail to fetch Strapi server");
-      return response.json();
-    });
+    }).then(handleResponse);
   }
 
   getFoldersTree(tagIds) {
@@ -61,10 +76,7 @@ export default class StrapiHttpClient {
     return fetch(`${this.routeBase}auth/local`, {
       method: "POST",
       body: authForm,
-    }).then(response => {
-      if (!response.ok) throw new Error("Fail to fetch Strapi server");
-      return response.json();
-    });
+    }).then(handleResponse);
   }
 
   register(username, email, password) {
@@ -78,23 +90,6 @@ export default class StrapiHttpClient {
     return fetch(`${this.routeBase}auth/local/register`, {
       method: "POST",
       body: authForm,
-    }).then(response =>
-      response.json().then(json => {
-        if (!response.ok) {
-          let status;
-          if (json.message) {
-            json.message.forEach(mes => {
-              mes.messages.forEach(text => {
-                status = `${status}${text.id} : ${text.message}<br />`;
-              });
-            });
-          } else {
-            status = json;
-          }
-          return Promise.reject(status);
-        }
-        return json;
-      }),
-    );
+    }).then(handleResponse);
   }
 }
