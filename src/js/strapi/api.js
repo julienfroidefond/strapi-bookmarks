@@ -62,8 +62,22 @@ export default class StrapiHttpClient {
       method: "POST",
       body: authForm,
     }).then(response => {
-      if (!response.ok) throw new Error("Fail to fetch Strapi server");
-      return response.json();
+      response.json().then(json => {
+        if (!response.ok) {
+          let status;
+          if (json.message) {
+            json.message.forEach(mes => {
+              mes.messages.forEach(text => {
+                status = `${status}${text.id} : ${text.message}<br />`;
+              });
+            });
+          } else {
+            status = json;
+          }
+          return Promise.reject(status);
+        }
+        return json;
+      });
     });
   }
 }
