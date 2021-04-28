@@ -9,7 +9,7 @@ const handleResponse = response =>
           });
         });
       } else {
-        status = json;
+        status = json.message ? json.message : json;
       }
       return Promise.reject(status);
     }
