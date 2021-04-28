@@ -1,3 +1,14 @@
+# [4.1.0](https://github.com/julienfroidefond/strapi-bookmarks/compare/v4.0.0...v4.1.0) (2021-04-28)
+
+
+### Features
+
+* **demo:** autolog ([42a76f1](https://github.com/julienfroidefond/strapi-bookmarks/commit/42a76f1fde6b5bc468f541a5ce79a7d85e7d2436))
+* **errors:** better handling everywhere + bug correction ([d9aaf35](https://github.com/julienfroidefond/strapi-bookmarks/commit/d9aaf3537bc829e30f7916bcebb62947a094a8ce))
+* **errors:** bettre handling of errors on auth ([20cd04d](https://github.com/julienfroidefond/strapi-bookmarks/commit/20cd04ddbf9d4364979a94a500d72671f9efe386))
+
+
+
 # [4.0.0](https://github.com/julienfroidefond/strapi-bookmarks/compare/v3.0.4...v4.0.0) (2021-04-28)
 
 
@@ -45,15 +56,6 @@
 ### Bug Fixes
 
 * **ui:** bad js on hide / show DOM elt ([5a07b91](https://github.com/julienfroidefond/strapi-bookmarks/commit/5a07b9147540a94a5eb6ffe4b8b8299a08987c20)), closes [#74](https://github.com/julienfroidefond/strapi-bookmarks/issues/74)
-
-
-
-## [3.0.1](https://github.com/julienfroidefond/strapi-bookmarks/compare/v3.0.0...v3.0.1) (2021-04-07)
-
-
-### Bug Fixes
-
-* **strapiprovider:** bug when no children ([a7a789b](https://github.com/julienfroidefond/strapi-bookmarks/commit/a7a789bcf0517b7cfcd4cd7a0836d5c3e30f09f1))
 
 
 
