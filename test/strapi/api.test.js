@@ -18,7 +18,7 @@ describe("strapi/api", () => {
       spy.url = url;
       spy.config = config;
       return new Promise(resolve => {
-        resolve({ ok: true, json: () => mockReturnRequestObject });
+        resolve({ ok: true, json: () => new Promise(res => res(mockReturnRequestObject)) });
       });
     };
     global.FormData = class FormData {
