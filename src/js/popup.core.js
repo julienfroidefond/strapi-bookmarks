@@ -64,6 +64,7 @@ const initRegister = async () => {
 
   document.getElementById("strapi-url-register").value = config.strapiUrl;
   document.getElementById("email-register").value = config.login;
+  document.getElementById("password-register").value = config.password;
 };
 
 export const forceSyncClick = async e => {
