@@ -123,7 +123,6 @@ input {
   -webkit-font-smoothing: antialiased;
   font-size: 14px;
   overflow: scroll;
-  min-height: 470px;
   display: none;
   background-color: white;
 }
@@ -132,6 +131,7 @@ input {
 }
 .route-main {
   width: 340px;
+  height: 420px;
 }
 
 #main {
