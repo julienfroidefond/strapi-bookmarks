@@ -18,7 +18,7 @@ describe("strapi/api", () => {
       spy.url = url;
       spy.config = config;
       return new Promise(resolve => {
-        resolve({ ok: true, json: () => mockReturnRequestObject });
+        resolve({ ok: true, json: () => new Promise(res => res(mockReturnRequestObject)) });
       });
     };
     global.FormData = class FormData {
@@ -81,6 +81,22 @@ describe("strapi/api", () => {
       mockForm.set("password", pwd);
 
       expect(() => httpClient.auth(login, pwd)).to.throw();
+    });
+  });
+  describe("#register()", () => {
+    it("should register without error", async () => {
+      const httpClient = new StrapiHttpClient(strapiConfig);
+      const username = "jfroidefond";
+      const email = "jfroidefond@gmail.com";
+      const password = "123456789";
+      const mockForm = new FormData();
+      mockForm.set("username", username);
+      mockForm.set("email", email);
+      mockForm.set("password", password);
+
+      await httpClient.register(username, email, password);
+      assert.deepEqual(spy.url, "http://mock.test/auth/local/register");
+      assert.deepEqual(spy.config, { method: "POST", body: { username, email, password } });
     });
   });
   describe("#getFoldersTree()", () => {

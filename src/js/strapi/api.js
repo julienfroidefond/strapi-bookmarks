@@ -66,4 +66,35 @@ export default class StrapiHttpClient {
       return response.json();
     });
   }
+
+  register(username, email, password) {
+    if (!username || !email || !password)
+      throw new Error("Trying to register without email or username or password. This is not possible.");
+    const authForm = new FormData();
+    authForm.set("username", username);
+    authForm.set("email", email);
+    authForm.set("password", password);
+
+    return fetch(`${this.routeBase}auth/local/register`, {
+      method: "POST",
+      body: authForm,
+    }).then(response =>
+      response.json().then(json => {
+        if (!response.ok) {
+          let status;
+          if (json.message) {
+            json.message.forEach(mes => {
+              mes.messages.forEach(text => {
+                status = `${status}${text.id} : ${text.message}<br />`;
+              });
+            });
+          } else {
+            status = json;
+          }
+          return Promise.reject(status);
+        }
+        return json;
+      }),
+    );
+  }
 }
