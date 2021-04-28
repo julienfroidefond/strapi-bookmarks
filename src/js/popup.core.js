@@ -10,6 +10,8 @@ import { waitPromise } from "./utils/time";
 import StrapiHttpClient from "./strapi/api";
 import { hideById, showById, setHtmlById, toggleDisableById } from "./utils/dom";
 
+const { log } = console;
+
 const channelDaemonPort = chrome.extension.connect({ name: "channel-sync-daemon" });
 const getState = async () => {
   const actionReqState = { type: ACTION_REQUEST_STATE };
@@ -50,17 +52,42 @@ const cleanError = () => {
   setHtmlById("error-message", "");
 };
 
-export const init = async () => {
-  // Fetch data
+const initSignin = async () => {
+  const config = await configUtils.load();
+
+  document.getElementById("strapi-url").value = config.strapiUrl;
+  document.getElementById("login").value = config.login;
+  document.getElementById("password").value = config.password;
+};
+
+export const forceSyncClick = async e => {
+  e.target.innerText = "Synchronizing...";
+  const action = { type: ACTION_FORCE_SYNC };
+  const syncActionPromise = postMessageAndWaitAck(channelDaemonPort, action);
+  await Promise.all([waitPromise(1000), syncActionPromise]);
+  const state = await getState();
+  renderBookmarksStats(state);
+  e.target.innerText = "Synchronize now";
+};
+
+export const showDemo = () => {
+  document.getElementById("strapi-url").value = "https://bookmarks-cms.herokuapp.com/";
+  document.getElementById("login").value = "strapi.bookmarks";
+  document.getElementById("password").value = "strapi.bookmarks";
+};
+
+const initMain = async () => {
+  showById("global-loader");
+
   const config = await configUtils.load();
   let tags = [];
   let categories = [];
   let bookmarksCount = 0;
   let tagsCategoriesCount = 0;
   let tagsCount = 0;
-  showById("global-loader");
+
   toggleDisableById("force-sync", !config.isConfigured);
-  if (config.isConfigured) {
+  if (config.strapiJwt) {
     const httpClient = new StrapiHttpClient(config);
     try {
       [tags, categories, bookmarksCount, tagsCategoriesCount, tagsCount] = await Promise.all([
@@ -106,16 +133,90 @@ export const init = async () => {
   }
 };
 
-export const forceSyncClick = async e => {
-  e.target.innerText = "Synchronizing...";
-  const action = { type: ACTION_FORCE_SYNC };
-  const syncActionPromise = postMessageAndWaitAck(channelDaemonPort, action);
-  await Promise.all([waitPromise(1000), syncActionPromise]);
-  const state = await getState();
-  renderBookmarksStats(state);
-  e.target.innerText = "Synchronize now";
+const routeTo = async route => {
+  switch (route) {
+    case "signin": {
+      showById("sign-in-container");
+      hideById("main-container");
+      document.getElementById("root").classList.add("route-signin");
+      document.getElementById("root").classList.remove("route-main");
+      await initSignin();
+      break;
+    }
+    case "main": {
+      hideById("sign-in-container");
+      showById("main-container");
+      document.getElementById("root").classList.remove("route-signin");
+      document.getElementById("root").classList.add("route-main");
+      await initMain();
+      break;
+    }
+    default: {
+      hideById("sign-in-container");
+      showById("main-container");
+      document.getElementById("root").classList.add("route-signin");
+      document.getElementById("root").classList.remove("route-main");
+      await initSignin();
+      break;
+    }
+  }
 };
 
-export const openOptionTab = () => {
-  chrome.tabs.create({ url: `chrome://extensions/?options=${chrome.runtime.id}` });
+export const signin = async () => {
+  showById("global-loader");
+  const strapiUrl = document.getElementById("strapi-url").value;
+  const login = document.getElementById("login").value;
+  const password = document.getElementById("password").value;
+  const httpClient = new StrapiHttpClient({
+    strapiUrl,
+  });
+
+  const config = await configUtils.load({ strapiJwt: null });
+
+  let { strapiJwt } = config;
+  let status = "";
+  if (password && password !== "" && login && login !== "") {
+    try {
+      const auth = await httpClient.auth(login, password);
+      if (auth.jwt && auth.jwt !== "") {
+        strapiJwt = auth.jwt;
+        log(`Setting up new token : ${strapiJwt}`);
+      }
+    } catch (e) {
+      strapiJwt = null;
+      status = e;
+    }
+  }
+
+  const newConfig = {
+    strapiUrl,
+    strapiJwt,
+    login,
+    password,
+  };
+
+  await configUtils.save(newConfig);
+
+  hideById("global-loader");
+
+  if (strapiJwt && strapiJwt !== "") {
+    await routeTo("main");
+  } else {
+    document.getElementById("signin-status").innerHTML = status;
+  }
+};
+
+export const signout = async () => {
+  await configUtils.save({ strapiJwt: null });
+  await routeTo("signin");
+};
+
+export const init = async () => {
+  const config = await configUtils.load();
+
+  if (config.strapiJwt && config.strapiJwt !== "") {
+    await routeTo("main");
+  } else {
+    await routeTo("signin");
+  }
 };

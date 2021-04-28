@@ -3,67 +3,77 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <link rel="stylesheet" href="./css/popup.css" />
 </head>
-<body>
-  <div id="title">
-    <div id="icon-and-name-wrapper">
-      <img id="icon" src="./img/strapi-bookmarks-48.png" /><span>Strapi bookmarks</span>
+<body id="root">
+  <div id="global-loader" class="loader">
+    <div class="lds-ellipsis">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
     </div>
   </div>
-  <div id="mainPopup">
-    <div id="global-loader" class="loader">
-      <div class="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+  <div id="sign-in-container">
+    <div id="sign-in" class="form-container">
+      <div id="sign-in-form">
+        <h1>Sign in</h1>
+        <br />
+        <input id="strapi-url" type="string" placeholder="Url server" />
+        <input id="login" type="string" placeholder="Login" />
+        <input id="password" type="password" placeholder="Password" />
+        <a id="show-demo" href="#">Start a demo</a>
+        <button id="sign-in-button">Sign In</button>
+        <p id="signin-status"></p>
       </div>
     </div>
-    <div>
-      Here are some links from your Strapi server. <br />
-      <b id="bookmarks-count">0</b> bookmarks available with <b id="tags-categories-count">0</b> tag
-      categories (<b id="tags-count">0</b>
-      tags) on the server.
-      <p>
-        You synced <b id="synced-tags-categories-count">0</b> categories and
-        <b id="synced-bookmarks-count">0</b> bookmarks.
-      </p>
+  </div>
+  <div id="main-container">
+    <div id="title">
+      <div id="icon-and-name-wrapper">
+        <img id="icon" src="./img/strapi-bookmarks-48.png" /><span>Strapi bookmarks</span>
+      </div>
     </div>
+    <div id="main">
 
-    <hr />
-    <h2>Syncing</h2>
-    <div id="onboarding" class="row onboarding-message hidden">
-      It seems you have not configured your strapi server yet 😃<br />
-      You can do it in the extension options !<br />
+      <div id="info-section">
+        <p>
+          Here are some links from your Strapi server. <br />
+          <b id="bookmarks-count">0</b> bookmarks available with <b id="tags-categories-count">0</b> tag
+          categories (<b id="tags-count">0</b>
+          tags) on the server.
+        </p>
+        <p>
+          You synced <b id="synced-tags-categories-count">0</b> categories and
+          <b id="synced-bookmarks-count">0</b> bookmarks.
+        </p>
+      </div>
 
-      <button class="btn btn-default btn-open-options float-right">Open options</button>
-    </div>
-    <div id="warning-tags" class="row">
-      CAUTION, surely you didn't configure properly this extension. Check options by right clicking on it.
-      strapiUrl is mandatory.
-      <p id="error-message"></p>
-      <button class="btn btn-default btn-open-options float-right">Open options</button>
-    </div>
-    <div id="sync-section">
-      <button id="force-sync" class="force-sync btn btn-default">Synchronize now</button>
-      <br />
-      <hr />
-      <h2>Datas</h2>
-      <p>Tags categories :</p>
-      <div id="menu-tags-categories-strapi"></div>
-      <!-- <span class="badge all-badges" data-st-id="all">Tous</span> -->
-      <p>Tags :</p>
-      <div id="menu-tags-strapi"></div>
-      <!-- <span class="badge all-badges" data-st-id="all">Tous</span> -->
-      <br />
-    </div>
-    <hr />
+      <div id="sync-section">
+        <button id="force-sync" class="force-sync btn btn-default">Synchronize now</button>
+      </div>
 
-    <div>
-      <h2>Help</h2>
-      By synchronising, you will get in your bookmarks a new directory named "Strapi bookmarks" and under it,
-      you will have, by category tags, sub directories with all fresh links. In options, you can change the
-      label of root directory and various options.
-      <img style="width: 100%" src="./img/screenshot.jpg" />
-    </div>
+      <div id="logout-section">
+        <button id="log-out">Logout</button>
+      </div>
+
+      <div id="onboarding" class="row onboarding-message hidden">
+        It seems you have not configured your strapi server yet 😃<br />
+        You can do it in the extension options !<br />
+
+        <button>Open options</button>
+      </div>
+
+      <div id="warning-tags" class="row">
+        There is a problem with the server :<br />
+        You can try to logout and login (token may be expired) or contact your administrator
+        <p id="error-message"></p>
+      </div>
+
+      <div id="data-section">
+        <p>Tags categories :</p>
+        <div id="menu-tags-categories-strapi"></div>
+        <p>Tags :</p>
+        <div id="menu-tags-strapi"></div>
+      </div>
+
   </div>
 </body>

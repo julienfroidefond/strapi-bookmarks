@@ -93,6 +93,17 @@ async function runJob() {
       });
       setState({ stats: { categoriesCount, tagsCount, bookmarksCount } });
     } else {
+      let categoriesCount = 0;
+      let bookmarksCount = 0;
+
+      await browseTree(localBookmarks, async item => {
+        if (item.url) {
+          bookmarksCount += 1;
+        } else {
+          categoriesCount += 1;
+        }
+      });
+      setState({ stats: { categoriesCount, bookmarksCount } });
       log("No differences found, skip syncing...");
     }
 
