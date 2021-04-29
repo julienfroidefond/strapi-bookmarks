@@ -629,10 +629,15 @@ acorn@^7.1.1, acorn@^7.4.0:
   resolved "https://registry.npmjs.org/acorn/-/acorn-7.4.1.tgz"
   integrity sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
 
-acorn@^8.0.4, acorn@^8.1.0:
+acorn@^8.1.0:
   version "8.1.0"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.1.0.tgz"
   integrity sha512-LWCF/Wn0nfHOmJ9rzQApGnxnvgfROzGilS8936rqN/lfcYkY9MYZzdMqN+2NJ4SlTc+m5HiSa+kNfDtI64dwUA==
+
+acorn@^8.2.1:
+  version "8.2.1"
+  resolved "https://registry.npmjs.org/acorn/-/acorn-8.2.1.tgz"
+  integrity sha512-z716cpm5TX4uzOzILx8PavOE6C6DKshHDw1aQN52M/yNSqE9s5O8SMfyhCCfCJ3HmTL0NkVOi+8a/55T7YB3bg==
 
 aggregate-error@^3.0.0:
   version "3.1.0"
@@ -2071,10 +2076,10 @@ eslint-config-airbnb-base@14.2.1:
     object.assign "^4.1.2"
     object.entries "^1.1.2"
 
-eslint-config-prettier@8.2.0:
-  version "8.2.0"
-  resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.2.0.tgz"
-  integrity sha512-dWV9EVeSo2qodOPi1iBYU/x6F6diHv8uujxbxr77xExs3zTAlNXvVZKiyLsQGNz7yPV2K49JY5WjPzNIuDc2Bw==
+eslint-config-prettier@8.3.0:
+  version "8.3.0"
+  resolved "https://registry.npmjs.org/eslint-config-prettier/-/eslint-config-prettier-8.3.0.tgz"
+  integrity sha512-BgZuLUSeKzvlL/VUjx/Yb787VQ26RU3gGjA3iiFvdsp/2bMfVIWUVP7tjxtjS0e+HP409cPlPvNkQloz8C91ew==
 
 eslint-import-resolver-node@^0.3.4:
   version "0.3.4"
@@ -2136,10 +2141,10 @@ eslint-visitor-keys@^2.0.0:
   resolved "https://registry.npmjs.org/eslint-visitor-keys/-/eslint-visitor-keys-2.0.0.tgz"
   integrity sha512-QudtT6av5WXels9WjIM7qz1XD1cWGvX4gGXvp/zBn9nXG02D0utdU3Em2m/QjTnrsk6bBjmCygl3rmj118msQQ==
 
-eslint@7.24.0:
-  version "7.24.0"
-  resolved "https://registry.npmjs.org/eslint/-/eslint-7.24.0.tgz"
-  integrity sha512-k9gaHeHiFmGCDQ2rEfvULlSLruz6tgfA8DEn+rY9/oYPFFTlz55mM/Q/Rij1b2Y42jwZiK3lXvNTw6w6TXzcKQ==
+eslint@7.25.0:
+  version "7.25.0"
+  resolved "https://registry.npmjs.org/eslint/-/eslint-7.25.0.tgz"
+  integrity sha512-TVpSovpvCNpLURIScDRB6g5CYu/ZFq9GfX2hLNIV4dSBKxIWojeDODvYl3t0k0VtMxYeR8OXPCFE5+oHMlGfhw==
   dependencies:
     "@babel/code-frame" "7.12.11"
     "@eslint/eslintrc" "^0.4.0"
@@ -6360,17 +6365,17 @@ webpack-sources@^2.1.1:
     source-list-map "^2.0.1"
     source-map "^0.6.1"
 
-webpack@5.35.0:
-  version "5.35.0"
-  resolved "https://registry.npmjs.org/webpack/-/webpack-5.35.0.tgz"
-  integrity sha512-au3gu55yYF/h6NXFr0KZPZAYxS6Nlc595BzYPke8n0CSff5WXcoixtjh5LC/8mXunkRKxhymhXmBY0+kEbR6jg==
+webpack@5.36.1:
+  version "5.36.1"
+  resolved "https://registry.npmjs.org/webpack/-/webpack-5.36.1.tgz"
+  integrity sha512-2u25a82T+6quAxSlzEpN/R/RICwt20ONU3z3Ko05S8KVH9FXILcBYb2hD/rQtZT5y7lRAIsIIs05pdndY7ourQ==
   dependencies:
     "@types/eslint-scope" "^3.7.0"
     "@types/estree" "^0.0.47"
     "@webassemblyjs/ast" "1.11.0"
     "@webassemblyjs/wasm-edit" "1.11.0"
     "@webassemblyjs/wasm-parser" "1.11.0"
-    acorn "^8.0.4"
+    acorn "^8.2.1"
     browserslist "^4.14.5"
     chrome-trace-event "^1.0.2"
     enhanced-resolve "^5.8.0"
