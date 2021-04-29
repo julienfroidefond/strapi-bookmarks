@@ -78,4 +78,18 @@ export default class StrapiHttpClient {
       body: authForm,
     }).then(handleResponse);
   }
+
+  register(username, email, password) {
+    if (!username || !email || !password)
+      throw new Error("Trying to register without email or username or password. This is not possible.");
+    const authForm = new FormData();
+    authForm.set("username", username);
+    authForm.set("email", email);
+    authForm.set("password", password);
+
+    return fetch(`${this.routeBase}auth/local/register`, {
+      method: "POST",
+      body: authForm,
+    }).then(handleResponse);
+  }
 }

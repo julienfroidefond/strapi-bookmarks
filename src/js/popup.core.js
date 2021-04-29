@@ -59,6 +59,13 @@ const initSignin = async () => {
   document.getElementById("login").value = config.login;
   document.getElementById("password").value = config.password;
 };
+const initRegister = async () => {
+  const config = await configUtils.load();
+
+  document.getElementById("strapi-url-register").value = config.strapiUrl;
+  document.getElementById("email-register").value = config.login;
+  document.getElementById("password-register").value = config.password;
+};
 
 export const forceSyncClick = async e => {
   e.target.innerText = "Synchronizing...";
@@ -139,24 +146,40 @@ const routeTo = async route => {
     case "signin": {
       showById("sign-in-container");
       hideById("main-container");
+      hideById("register-container");
       document.getElementById("root").classList.add("route-signin");
       document.getElementById("root").classList.remove("route-main");
+      document.getElementById("root").classList.remove("route-register");
       await initSignin();
       break;
     }
     case "main": {
       hideById("sign-in-container");
       showById("main-container");
+      hideById("register-container");
       document.getElementById("root").classList.remove("route-signin");
       document.getElementById("root").classList.add("route-main");
+      document.getElementById("root").classList.remove("route-register");
       await initMain();
+      break;
+    }
+    case "register": {
+      hideById("sign-in-container");
+      hideById("main-container");
+      showById("register-container");
+      document.getElementById("root").classList.remove("route-signin");
+      document.getElementById("root").classList.remove("route-main");
+      document.getElementById("root").classList.add("route-register");
+      await initRegister();
       break;
     }
     default: {
       hideById("sign-in-container");
       showById("main-container");
+      hideById("register-container");
       document.getElementById("root").classList.add("route-signin");
       document.getElementById("root").classList.remove("route-main");
+      document.getElementById("root").classList.remove("route-register");
       await initSignin();
       break;
     }
@@ -219,5 +242,52 @@ export const init = async () => {
     await routeTo("main");
   } else {
     await routeTo("signin");
+  }
+};
+
+export const routeToRegister = async () => {
+  await routeTo("register");
+};
+export const routeToSignin = async () => {
+  await routeTo("signin");
+};
+
+export const register = async () => {
+  const strapiUrl = document.getElementById("strapi-url-register").value;
+  const username = document.getElementById("username-register").value;
+  const email = document.getElementById("email-register").value;
+  const password = document.getElementById("password-register").value;
+
+  if (strapiUrl && strapiUrl !== "") {
+    const config = await configUtils.load({ strapiJwt: null });
+    let status = "";
+
+    let { strapiJwt } = config;
+    try {
+      const httpClient = new StrapiHttpClient({ strapiUrl });
+
+      const reg = await httpClient.register(username, email, password);
+      if (reg.jwt && reg.jwt !== "") {
+        strapiJwt = reg.jwt;
+        log(`Setting up new token : ${strapiJwt}`);
+
+        const newConfig = {
+          strapiUrl,
+          strapiJwt,
+          login: email,
+          password,
+        };
+
+        await configUtils.save(newConfig);
+      }
+    } catch (e) {
+      status = e;
+    }
+
+    if (strapiJwt && strapiJwt !== "") {
+      await routeTo("main");
+    } else {
+      document.getElementById("register-status").innerHTML = status;
+    }
   }
 };
