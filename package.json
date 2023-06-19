@@ -6,7 +6,7 @@
     "css-loader": "5.2.4",
     "cz-conventional-changelog": "3.3.0",
     "eslint": "7.25.0",
-    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-config-airbnb-base": "15.0.0",
     "eslint-config-prettier": "8.3.0",
     "eslint-plugin-import": "2.22.1",
     "esm": "3.2.25",
