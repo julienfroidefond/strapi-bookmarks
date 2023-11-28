@@ -11,7 +11,7 @@
     "eslint-plugin-import": "2.22.1",
     "esm": "3.2.25",
     "file-loader": "6.2.0",
-    "fs-extra": "9.1.0",
+    "fs-extra": "11.2.0",
     "html-loader": "2.1.2",
     "html-webpack-plugin": "5.3.1",
     "husky": "6.0.0",
